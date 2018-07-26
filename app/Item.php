@@ -20,4 +20,9 @@ class Item extends Model
     {
         return $this->belongsTo(Condition::class, 'condition_id');
     }
+
+    public function repairs()
+    {
+        return $this->hasMany(Repair::class, 'item_id');
+    }
 }

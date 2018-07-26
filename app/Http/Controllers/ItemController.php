@@ -24,7 +24,7 @@ class ItemController extends Controller
             $items = Item::all();
             return view('item.index')->with(['items' => $items]);
         } else {
-            $items = Item::join('stuffs', 'stuffs.id', 'items.stuff_id')->where('stuffs.program_id', '=', $user->program_id)->get();
+            $items = Item::join('stuffs', 'stuffs.id', 'items.stuff_id')->where('stuffs.program_id', '=', $user->program_id)->addSelect('stuffs.name', 'items.quantity', 'items.location', 'items.condition_id')->get();
 //            dd($items);
             return view('item.index')->with(['items' => $items]);
         }
@@ -42,9 +42,11 @@ class ItemController extends Controller
         if (Auth::user()->role == 'admin' || Auth::user()->role == 'unit') {
             $stuffs = Stuff::all();
             return view('item.create')->with(['stuffs' => $stuffs, 'conditions' => $conditions]);
+        } else {
+            $stuffs = Stuff::where('program_id', '=', $user->program_id)->get();
+            return view('item.create')->with(['stuffs' => $stuffs, 'conditions' => $conditions]);
         }
-        $stuffs = Stuff::where('program_id', '=', $user->program_id);
-        return view('item.create')->with(['stuffs' => $stuffs, 'conditions' => $conditions]);
+
     }
 
     /**
@@ -57,23 +59,21 @@ class ItemController extends Controller
     {
         $stuff = Stuff::find($request->stuff_id);
         $itemsInput = $request->get('items');
-        dd(sizeof($itemsInput));
         $items = [];
         foreach ($itemsInput as $item) {
             $items[] = new Item($item);
-//            $item = new Item();
-//            $item->stuff_id = $request->get('stuff_id');
-//            $item->location = $request->get('location');
-//            $item->quantity = $request->get('quantity');
-//            $item->condition_id = $request->get('condition_id');
-//
-//            $item->save();
+        }
+        $sum = 0;
+        foreach ($items as $row) {
+            $sum += $row->quantity;
         }
 
         $stuff->items()->saveMany($items);
-//        foreach ($items as $row) {
-//            DB::table('items')->insert($row);
-//        }
+
+
+        $this->updateQuantityStuff($stuff->id, $sum);
+
+
         return redirect('item');
     }
 
@@ -96,7 +96,15 @@ class ItemController extends Controller
      */
     public function edit($id)
     {
-        //
+        $item = Item::find($id);
+        $user = Auth::user();
+        $conditions = Condition::all();
+        if (Auth::user()->role == 'admin' || Auth::user()->role == 'unit') {
+            $stuffs = Stuff::all();
+            return view('item.edit')->with(['item' => $item, 'stuffs' => $stuffs, 'conditions' => $conditions]);
+        }
+        $stuffs = Stuff::where('program_id', '=', $user->program_id);
+        return view('item.edit')->with(['item' => $item, 'stuffs' => $stuffs, 'conditions' => $conditions]);
     }
 
     /**
@@ -120,5 +128,13 @@ class ItemController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function updateQuantityStuff($id, $quantity)
+    {
+        $stuff = Stuff::find($id);
+
+        $stuff->quantity = $quantity;
+        $stuff->save();
     }
 }

@@ -11,7 +11,7 @@
         <!-- ============================================================== -->
         <div class="row page-titles">
             <div class="col-md-5 align-self-center">
-                <h3 class="text-themecolor">Master Barang</h3>
+                <h3 class="text-themecolor"> Barang</h3>
             </div>
             <div class="col-md-7 align-self-center">
                 <ol class="breadcrumb">
@@ -38,13 +38,13 @@
                 <div class="col-lg-12">
                     <div class="card card-outline-info">
                         <div class="card-header">
-                            <h4 class="m-b-0 text-white">Form Tambah Master Barang</h4>
+                            <h4 class="m-b-0 text-white">Form Tambah Barang</h4>
                         </div>
                         <div class="card-body">
                             {!! Form::open(['route' => 'item.store', 'data-parsley-validate' => '', 'files' => true, 'method' => 'POST  ']) !!}
                             <div class="form-group">
                                 <div class="form-body">
-                                    <h3 class="card-title">Info Master Barang</h3>
+                                    <h3 class="card-title">Info Barang</h3>
                                     <hr>
                                     <div class="row p-t-20">
 
@@ -73,14 +73,14 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label class="control-label">Lokasi</label>
-                                                {{ Form::text('items[0][location]', null, array('class' => 'form-control', 'maxlength' => '255')) }}
+                                                {{ Form::text('items[0][location]', null, array('class' => 'form-control', 'required' => '', 'maxlength' => '255')) }}
                                             </div>
                                         </div>
 
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label class="control-label">Jumlah</label>
-                                                {{ Form::text('items[0][quantity]', null, array('class' => 'form-control',  'maxlength' => '255')) }}
+                                                {{ Form::text('items[0][quantity]', null, array('class' => 'form-control', 'required' => '', 'maxlength' => '255')) }}
                                             </div>
                                         </div>
 
@@ -98,14 +98,14 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label class="control-label">Lokasi</label>
-                                                {{ Form::text('items[1][location]', null, array('class' => 'form-control',  'maxlength' => '255')) }}
+                                                {{ Form::text('items[1][location]', null, array('class' => 'form-control', 'required' => '', 'maxlength' => '255')) }}
                                             </div>
                                         </div>
 
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label class="control-label">Jumlah</label>
-                                                {{ Form::text('items[1][quantity]', null, array('class' => 'form-control',  'maxlength' => '255')) }}
+                                                {{ Form::text('items[1][quantity]', null, array('class' => 'form-control', 'required' => '', 'maxlength' => '255')) }}
                                             </div>
                                         </div>
 
@@ -122,14 +122,14 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label class="control-label">Lokasi</label>
-                                                {{ Form::text('items[2][location]', null, array('class' => 'form-control',  'maxlength' => '255')) }}
+                                                {{ Form::text('items[2][location]', null, array('class' => 'form-control', 'required' => '', 'maxlength' => '255')) }}
                                             </div>
                                         </div>
 
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label class="control-label">Jumlah</label>
-                                                {{ Form::text('items[2][quantity]', null, array('class' => 'form-control',  'maxlength' => '255')) }}
+                                                {{ Form::text('items[2][quantity]', null, array('class' => 'form-control', 'required' => '', 'maxlength' => '255')) }}
                                             </div>
                                         </div>
 

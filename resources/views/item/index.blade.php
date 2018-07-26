@@ -52,12 +52,15 @@
                                     </thead>
                                     <tbody>
                                     @foreach($items as $item)
-                                        <tr>
-                                            <td><a href="{{ url('item/'. $item->id.'/edit') }}"> {{ $item->stuff->name }}</a></td>
-                                            <td>{{ $item->location  }}</td>
-                                            <td>{{ $item->condition->name  }}</td>
-                                            <td>{{ $item->quantity  }}</td>
-                                        </tr>
+                                        @if($item->quantity==0)
+                                        @else
+                                            <tr>
+                                                <td><a href="{{ url('item/'. $item->id.'/edit') }}"> {{ $item->name }}</a></td>
+                                                <td>{{ $item->location  }}</td>
+                                                <td>{{ $item->condition->name  }}</td>
+                                                <td>{{ $item->quantity  }}</td>
+                                            </tr>
+                                        @endif
                                     @endforeach
                                     </tbody>
                                 </table>

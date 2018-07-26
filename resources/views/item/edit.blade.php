@@ -38,13 +38,13 @@
                 <div class="col-lg-12">
                     <div class="card card-outline-info">
                         <div class="card-header">
-                            <h4 class="m-b-0 text-white">Form Edit Master Barang</h4>
+                            <h4 class="m-b-0 text-white">Form Edit Barang</h4>
                         </div>
                         <div class="card-body">
                             {!! Form::model($item, ['route' => ['item.update', $item->id], 'method' => 'PUT', 'files' => true]) !!}
                             <div class="form-group">
                                 <div class="form-body">
-                                    <h3 class="card-title">Info Master Barang</h3>
+                                    <h3 class="card-title">Info Barang</h3>
                                     <hr>
                                     <div class="row p-t-20">
 
