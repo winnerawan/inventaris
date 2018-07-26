@@ -53,10 +53,17 @@
                                     <tbody>
                                     @foreach($repairs as $repair)
                                     <tr>
-                                        <td><a href="{{ url('repair/'. $repair->id.'/edit') }}"> </a>{{ $repair->item->stuff->name }}</td>
-                                        <td>{{ $repair->item->condition->name }}</td>
-                                        <td>{{ $repair->quantity }}</td>
-                                        <td>{{ $repair->created_at }}</td>
+                                        @if(Auth::user()->role == 'program_study')
+                                            <td><a href="{{ url('repair/'. $repair->id.'/edit') }}"> </a>{{ $repair->name }}</td>
+                                            <td>{{ $repair->condition }}</td>
+                                            <td>{{ $repair->quantity }}</td>
+                                            <td>{{ $repair->created_at }}</td>
+                                         @else
+                                            <td><a href="{{ url('admin/repair/'. $repair->id.'/edit') }}"> </a>{{ $repair->item->stuff->name }}</td>
+                                            <td>{{ $repair->item->condition->name }}</td>
+                                            <td>{{ $repair->quantity }}</td>
+                                            <td>{{ $repair->created_at }}</td>
+                                         @endif
 
                                     </tr>
                                     @endforeach

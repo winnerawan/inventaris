@@ -58,16 +58,17 @@
                                             </div>
                                         </div>
                                         <!--/span-->
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Jumlah</label>
-                                                <select name="quantity" id="quantity" class="form-control custom-select">
-                                                    @for($i=1; $i<=$repair->quantity; $i++)
-                                                        <option value="{{ $i }}">{{ $i }}</option>
-                                                    @endfor
-                                                </select>
+
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Jumlah</label>
+                                                    <select name="quantity" id="quantity" class="form-control custom-select">
+                                                        @for($i=1; $i<=$repair->quantity; $i++)
+                                                            <option value="{{ $i }}">{{ $i }}</option>
+                                                        @endfor
+                                                    </select>
+                                                </div>
                                             </div>
-                                        </div>
                                         <!--/span-->
                                     </div>
                                     <!--/row-->

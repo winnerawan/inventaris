@@ -24,7 +24,7 @@ class ItemController extends Controller
             $items = Item::all();
             return view('item.index')->with(['items' => $items]);
         } else {
-            $items = Item::join('stuffs', 'stuffs.id', 'items.stuff_id')->where('stuffs.program_id', '=', $user->program_id)->addSelect('stuffs.name', 'items.quantity', 'items.location', 'items.condition_id')->get();
+            $items = Item::join('stuffs', 'stuffs.id', 'items.stuff_id')->where('stuffs.program_id', '=', $user->program_id)->addSelect('stuffs.name','items.id', 'items.quantity', 'items.location', 'items.condition_id')->get();
 //            dd($items);
             return view('item.index')->with(['items' => $items]);
         }
