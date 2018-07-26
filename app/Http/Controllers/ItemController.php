@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use App\Condition;
 use App\Item;
 use App\Stuff;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
 
 class ItemController extends Controller
 {
@@ -36,8 +38,12 @@ class ItemController extends Controller
     public function create()
     {
         $user = Auth::user();
-        $stuffs = Stuff::where('program_id', '=', $user->program_id);
         $conditions = Condition::all();
+        if (Auth::user()->role == 'admin' || Auth::user()->role == 'unit') {
+            $stuffs = Stuff::all();
+            return view('item.create')->with(['stuffs' => $stuffs, 'conditions' => $conditions]);
+        }
+        $stuffs = Stuff::where('program_id', '=', $user->program_id);
         return view('item.create')->with(['stuffs' => $stuffs, 'conditions' => $conditions]);
     }
 
@@ -49,7 +55,26 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $stuff = Stuff::find($request->stuff_id);
+        $itemsInput = $request->get('items');
+        dd(sizeof($itemsInput));
+        $items = [];
+        foreach ($itemsInput as $item) {
+            $items[] = new Item($item);
+//            $item = new Item();
+//            $item->stuff_id = $request->get('stuff_id');
+//            $item->location = $request->get('location');
+//            $item->quantity = $request->get('quantity');
+//            $item->condition_id = $request->get('condition_id');
+//
+//            $item->save();
+        }
+
+        $stuff->items()->saveMany($items);
+//        foreach ($items as $row) {
+//            DB::table('items')->insert($row);
+//        }
+        return redirect('item');
     }
 
     /**

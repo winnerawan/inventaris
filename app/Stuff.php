@@ -16,5 +16,9 @@ class Stuff extends Model
         return $this->belongsTo(Program::class, 'program_id');
     }
 
+    public function items()
+    {
+        return $this->hasMany(Item::class, 'stuff_id');
+    }
 
 }
