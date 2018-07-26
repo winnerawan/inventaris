@@ -126,7 +126,7 @@ class StuffController extends Controller
         $stuff->category_id = $request->input('category_id');
         $stuff->name = $request->input('name');
 //        $stuff->description = $request->input('description');
-        $stuff->quantity = 0;
+//        $stuff->quantity = 0;
 
 
         if (Auth::user()->role == 'admin' || Auth::user()->role == 'unit') {

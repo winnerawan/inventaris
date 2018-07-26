@@ -27,3 +27,4 @@ Route::resource('/program', 'ProgramController');
 Route::resource('/users', 'UserController')->middleware('admin');
 Route::resource('/stuff', 'StuffController');
 Route::resource('/item', 'ItemController');
+Route::resource('/repair', 'RepairController');

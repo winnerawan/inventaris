@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset("admin/assets/images/favicon.png") }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset("/img/unipma.png")  }}">
     <title>{{ config('app.name') }}</title>
     <!-- Bootstrap Core CSS -->
     <link href="{{ asset("admin/assets/plugins/bootstrap/css/bootstrap.min.css") }}" rel="stylesheet">
@@ -19,6 +19,12 @@
     <link href="{{ asset("admin/css/style.css") }}" rel="stylesheet">
     <!-- You can change the theme colors from here -->
     <link href="{{ asset("admin/css/colors/blue.css") }}" id="theme" rel="stylesheet">
+    <!-- chartist CSS -->
+    <link href="{{ asset("admin/assets/plugins/chartist-js/dist/chartist.min.css") }}" rel="stylesheet">
+    <link href="{{ asset("admin/assets/plugins/chartist-js/dist/chartist-init.css") }}" rel="stylesheet">
+    <link href="{{ asset("admin/assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.css") }}" rel="stylesheet">
+    <!-- morris CSS -->
+    <link href="{{ asset("admin/assets/plugins/morrisjs/morris.css") }}" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -96,7 +102,7 @@
 <script src="{{ asset("admin/assets/plugins/morrisjs/morris.min.js") }}"></script>
 <!-- Chart JS -->
 <!-- <script src="{{ asset("admin/js/dashboard1.js") }}"></script> -->
-<script src="{{ asset("admin/js/dashboard4.js") }}"></script>
+<script src="{{ asset("admin/js/dashboard2.js") }}"></script>
 
 <!-- ============================================================== -->
 <!-- Style switcher -->

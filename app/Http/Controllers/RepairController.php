@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Item;
 use App\Repair;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -25,8 +26,8 @@ class RepairController extends Controller
             $repairs = Repair::all();
             return view('repair')->with(['repairs' => $repairs]);
         } else {
-            $repairs = Repair::join('items', 'items.id', '=', 'repairs.item_id')->join('stuffs', 'stuffs.id', '=', 'items.stuff_id')->where('stuffs.program_id', '=', $user);
-            dd($repairs);
+            $repairs = Repair::join('items', 'items.id', '=', 'repairs.item_id')->join('stuffs', 'stuffs.id', '=', 'items.stuff_id')->where('stuffs.program_id', '=', $user->program_id);
+            return view('repair')->with(['repairs' => $repairs]);
         }
     }
 
@@ -37,7 +38,15 @@ class RepairController extends Controller
      */
     public function create()
     {
-        //
+        $user = Auth::user();
+        $items = Item::join('stuffs', 'stuffs.id',  '=', 'items.stuff_id')
+            ->join('conditions', 'conditions.id', '=', 'items.condition_id')
+            ->join('programs', 'programs.id', '=', 'stuffs.program_id')
+            ->where('stuffs.program_id', '=', $user->program_id)
+            ->where('items.condition_id', '=', 2)
+            ->addSelect('stuffs.name', 'programs.name as program', 'items.quantity', 'items.location', 'items.condition_id', 'conditions.name as condition')->get();
+//        dd($items);
+        return view('repair.create')->with(['items' => $items]);
     }
 
     /**
