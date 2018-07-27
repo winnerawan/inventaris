@@ -30,3 +30,5 @@ Route::resource('/item', 'ItemController');
 Route::resource('/repair', 'RepairController');
 Route::get('repairback', 'RepairController@back')->name('repair.back');
 Route::post('repairfixed', 'RepairController@fixed')->name('repair.fixed');
+Route::get('getJsonQty/{id}', 'AdminAuth\RepairController@getJsonQty');
+

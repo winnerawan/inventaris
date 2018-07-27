@@ -118,6 +118,7 @@ class RepairController extends Controller
     public function back()
     {
         $user = Auth::user();
+
         $repairs = Repair::join('items', 'items.id', '=', 'repairs.item_id')->join('stuffs', 'stuffs.id', '=', 'items.stuff_id')->where('stuffs.program_id', '=', $user->program_id);
 
         return view('repair.back')->with(['repairs' => $repairs]);
@@ -134,5 +135,12 @@ class RepairController extends Controller
         }
 
         return redirect('repair');
+    }
+
+    public function getJsonQty($id)
+    {
+        $item = Item::find($id);
+        $j = $item->quantity;
+        return $j;
     }
 }

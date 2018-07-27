@@ -21,7 +21,9 @@
                 </ol>
             </div>
             <div>
-                <button class="right-side-toggle waves-effect waves-light btn-inverse btn btn-circle btn-sm pull-right m-l-10"><i class="ti-settings text-white"></i></button>
+                <button
+                    class="right-side-toggle waves-effect waves-light btn-inverse btn btn-circle btn-sm pull-right m-l-10">
+                    <i class="ti-settings text-white"></i></button>
             </div>
         </div>
         <!-- ============================================================== -->
@@ -40,7 +42,9 @@
                         <div class="card-body">
                             <h4 class="card-title">Data Barang</h4>
                             <div class="table-responsive m-t-40">
-                                <table id="example23" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                                <table id="example23"
+                                       class="display nowrap table table-hover table-striped table-bordered"
+                                       cellspacing="0" width="100%">
                                     <thead>
                                     <tr>
                                         <th>Nama</th>
@@ -56,9 +60,17 @@
                                         @else
                                             <tr>
                                                 @if(Auth::user()->role == 'admin' || Auth::user()->role == 'unit')
-                                                    <td><a href="{{ url('item/'. $item->id.'/edit') }}"> {{ $item->stuff->name }}</a></td>
+                                                    <td>
+{{--                                                        <a href="{{ url('item/'. $item->id.'/edit') }}"> --}}
+                                                            {{ $item->stuff->name }}
+                                                        {{--</a>--}}
+                                                    </td>
                                                 @else
-                                                    <td><a href="{{ url('item/'. $item->id.'/edit') }}"> {{ $item->name }}</a></td>
+                                                    <td>
+                                                        {{--<a href="{{ url('item/'. $item->id.'/edit') }}"> --}}
+                                                            {{ $item->name }}
+                                                        {{--</a>--}}
+                                                    </td>
                                                 @endif
                                                 <td>{{ $item->location  }}</td>
                                                 <td>{{ $item->condition->name  }}</td>
@@ -71,13 +83,14 @@
                             </div>
                         </div>
                     </div>
-@endsection@section('extra-script')
+                @endsection
+                @section('extra-script')
 
                     <!-- end - This is for export functionality only -->
                         <script>
-                            $(document).ready(function() {
+                            $(document).ready(function () {
                                 $('#myTable').DataTable();
-                                $(document).ready(function() {
+                                $(document).ready(function () {
                                     var table = $('#example').DataTable({
                                         "columnDefs": [{
                                             "visible": false,
@@ -87,7 +100,7 @@
                                             [2, 'asc']
                                         ],
                                         "displayLength": 25,
-                                        "drawCallback": function(settings) {
+                                        "drawCallback": function (settings) {
                                             var api = this.api();
                                             var rows = api.rows({
                                                 page: 'current'
@@ -95,7 +108,7 @@
                                             var last = null;
                                             api.column(2, {
                                                 page: 'current'
-                                            }).data().each(function(group, i) {
+                                            }).data().each(function (group, i) {
                                                 if (last !== group) {
                                                     $(rows).eq(i).before('<tr class="group"><td colspan="5">' + group + '</td></tr>');
                                                     last = group;
@@ -104,7 +117,7 @@
                                         }
                                     });
                                     // Order by the grouping
-                                    $('#example tbody').on('click', 'tr.group', function() {
+                                    $('#example tbody').on('click', 'tr.group', function () {
                                         var currentOrder = table.order()[0];
                                         if (currentOrder[0] === 2 && currentOrder[1] === 'asc') {
                                             table.order([2, 'desc']).draw();
