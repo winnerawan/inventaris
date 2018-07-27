@@ -58,7 +58,7 @@
             <div class="footer">
                 <button type="submit" class="btn btn-brand btn-block">Masuk Aplikasi</button>
                 <a href="{{ url('/admin/password/reset') }}"><font color="#636361"> Lupa Password?</font></a>
-                <a href="" target="_blank" style="float: right; color:#A7A9AC;"><font color="#636361">Copyright © 2018 Riska Bentol-Bentol </font></a>
+                <a href="" target="_blank" style="float: right; color:#A7A9AC;"><font color="#636361">Copyright © 2018</font></a>
                 <div class="clearfix"></div>
             </div>
         </form>
