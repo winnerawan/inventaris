@@ -52,20 +52,22 @@
                                     </thead>
                                     <tbody>
                                     @foreach($repairs as $repair)
-                                    <tr>
                                         @if(Auth::user()->role == 'program_study')
-                                            <td><a href="{{ url('repair/'. $repair->id.'/edit') }}"> </a>{{ $repair->name }}</td>
-                                            <td>{{ $repair->condition }}</td>
-                                            <td>{{ $repair->quantity }}</td>
-                                            <td>{{ $repair->created_at }}</td>
+                                            <tr>
+                                                <td><a href="{{ url('repair/'. $repair->id.'/edit') }}"> </a>{{ $repair->name }}</td>
+                                                <td>{{ $repair->condition }}</td>
+                                                <td>{{ $repair->quantity }}</td>
+                                                <td>{{ $repair->created_at }}</td>
+                                            </tr>
                                          @else
-                                            <td><a href="{{ url('admin/repair/'. $repair->id.'/edit') }}"> </a>{{ $repair->item->stuff->name }}</td>
+                                         <tr>
+                                            <td><a href="{{ url('repair/'. $repair->id.'/edit') }}"> </a>{{ $repair->item->stuff->name }}</td>
                                             <td>{{ $repair->item->condition->name }}</td>
                                             <td>{{ $repair->quantity }}</td>
                                             <td>{{ $repair->created_at }}</td>
+                                         </tr>
                                          @endif
 
-                                    </tr>
                                     @endforeach
                                     </tbody>
                                 </table>

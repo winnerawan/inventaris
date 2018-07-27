@@ -27,8 +27,6 @@ class RepairController extends Controller
             return view('repair.index')->with(['repairs' => $repairs]);
         } else {
             $repairs = Repair::join('items', 'items.id', '=', 'repairs.item_id')->join('stuffs', 'stuffs.id', '=', 'items.stuff_id')->join('conditions', 'conditions.id', '=', 'items.condition_id')->where('stuffs.program_id', '=', $user->program_id)->addSelect('stuffs.name','items.id', 'repairs.quantity', 'items.location', 'conditions.name as condition', 'repairs.created_at')->get();
-
-//            dd($repairs);
             return view('repair.index')->with(['repairs' => $repairs]);
         }
     }
@@ -41,14 +39,27 @@ class RepairController extends Controller
     public function create()
     {
         $user = Auth::user();
-        $items = Item::join('stuffs', 'stuffs.id',  '=', 'items.stuff_id')
-            ->join('conditions', 'conditions.id', '=', 'items.condition_id')
-            ->join('programs', 'programs.id', '=', 'stuffs.program_id')
-            ->where('stuffs.program_id', '=', $user->program_id)
-            ->where('items.condition_id', '=', 2)
-            ->addSelect('stuffs.name', 'programs.name as program', 'items.id', 'items.quantity', 'items.location', 'items.condition_id', 'conditions.name as condition')->get();
-//        dd($items);
-        return view('repair.create')->with(['items' => $items]);
+        if ($user->role == 'admin' || $user->role == 'unit') {
+//            $items = Item::where('condition_id', 2)->get();
+            $items = Item::join('stuffs', 'stuffs.id',  '=', 'items.stuff_id')
+                ->join('conditions', 'conditions.id', '=', 'items.condition_id')
+                ->join('programs', 'programs.id', '=', 'stuffs.program_id')
+                ->where('items.condition_id', '=', 2)
+                ->addSelect('stuffs.name', 'programs.name as program', 'items.id', 'items.quantity', 'items.location', 'items.condition_id', 'conditions.name as condition')->get();
+//            dd($items);
+            return view('repair.create')->with(['items' => $items]);
+        } else {
+            $items = Item::join('stuffs', 'stuffs.id',  '=', 'items.stuff_id')
+                ->join('conditions', 'conditions.id', '=', 'items.condition_id')
+                ->join('programs', 'programs.id', '=', 'stuffs.program_id')
+                ->where('stuffs.program_id', '=', $user->program_id)
+                ->where('items.condition_id', '=', 2)
+                ->addSelect('stuffs.name', 'programs.name as program', 'items.id', 'items.quantity', 'items.location', 'items.condition_id', 'conditions.name as condition')->get();
+            if (sizeof($items)==0) {
+                return redirect('item');
+            }
+            return view('repair.create')->with(['items' => $items]);
+        }
     }
 
     /**
@@ -67,7 +78,7 @@ class RepairController extends Controller
         $repair->save();
         $this->subtract_item_quantity($request->item_id, $request->quantity);
 
-        return redirect('repair/index');
+        return redirect('repair');
     }
 
     /**
@@ -112,16 +123,24 @@ class RepairController extends Controller
      */
     public function destroy($id)
     {
-
+        $repair = Repair::find($id);
+        $repair->delete();
     }
 
     public function back()
     {
         $user = Auth::user();
+        if ($user->role == 'admin' || $user->role == 'unit') {
+            $repairs = Repair::all();
+            return view('repair.back')->with(['repairs' => $repairs]);
+        } else {
+            $repairs = Repair::join('items', 'items.id', '=', 'repairs.item_id')->join('stuffs', 'stuffs.id', '=', 'items.stuff_id')->where('stuffs.program_id', '=', $user->program_id)->get();
+            if (sizeof($repairs)==0) {
+                return redirect('repair');
+            }
+            return view('repair.back')->with(['repairs' => $repairs]);
+        }
 
-        $repairs = Repair::join('items', 'items.id', '=', 'repairs.item_id')->join('stuffs', 'stuffs.id', '=', 'items.stuff_id')->where('stuffs.program_id', '=', $user->program_id);
-
-        return view('repair.back')->with(['repairs' => $repairs]);
     }
 
     public function subtract_item_quantity($id, $qty)
@@ -134,7 +153,6 @@ class RepairController extends Controller
             $item->save();
         }
 
-        return redirect('repair');
     }
 
     public function getJsonQty($id)
@@ -142,5 +160,32 @@ class RepairController extends Controller
         $item = Item::find($id);
         $j = $item->quantity;
         return $j;
+    }
+
+    public function update_condition_fixed_item(Request $request)
+    {
+        $repair = Repair::find($request->repair_id);
+        $item = Item::find($repair->item_id);
+        $qty = ((int)$item->quantity - (int)$request->quantity);
+        $qty2 = (int)$repair->quantity - (int)$request->quantity;
+
+        if ($qty2==0) {
+            $this->destroy($repair->id);
+        }
+
+        $this->moveRepairedItemToGoodCondition($repair->item->stuff_id, $request->quantity);
+
+        $repair->quantity = $qty2;
+        $repair->save();
+
+        return redirect('repair');
+
+    }
+
+    public function moveRepairedItemToGoodCondition($id, $qty)
+    {
+        $item = Item::where('stuff_id', '=', $id)->where('condition_id', '=', 1)->first();
+        $item->quantity = $item->quantity + $qty;
+        $item->save();
     }
 }

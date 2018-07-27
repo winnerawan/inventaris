@@ -11,12 +11,12 @@
         <!-- ============================================================== -->
         <div class="row page-titles">
             <div class="col-md-5 align-self-center">
-                <h3 class="text-themecolor">Barang</h3>
+                <h3 class="text-themecolor"> Barang</h3>
             </div>
             <div class="col-md-7 align-self-center">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ url('home') }}">Home</a></li>
-                    <li class="breadcrumb-item">Barang</li>
+                    <li class="breadcrumb-item">Master Barang</li>
                 </ol>
             </div>
             <div class="">
@@ -38,34 +38,34 @@
                 <div class="col-lg-12">
                     <div class="card card-outline-info">
                         <div class="card-header">
-                            <h4 class="m-b-0 text-white">Form Edit Barang</h4>
+                            <h4 class="m-b-0 text-white">Form Tambah Barang</h4>
                         </div>
                         <div class="card-body">
-                            {!! Form::model($item, ['route' => ['item.update', $item->id], 'method' => 'PUT', 'files' => true]) !!}
+                            {!! Form::model($item, ['route' => ['item.update', $item->id], 'method' => 'PUT', 'files' => true]) !!}                            <div class="form-group">
                             <div class="form-group">
                                 <div class="form-body">
                                     <h3 class="card-title">Info Barang</h3>
                                     <hr>
                                     <div class="row p-t-20">
 
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="control-label">Barang</label>
-                                                    <select name="stuff_id" id="stuff_id" class="form-control custom-select">
-                                                        @foreach($stuffs as $stuff)
-                                                            <option value="{{ $stuff->id }}">{{ $stuff->name }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="control-label">Barang</label>
+                                                <select name="stuff_id" id="stuff_id" class="form-control custom-select">
+                                                    @foreach($stuffs as $stuff)
+                                                        <option value="{{ $stuff->id }}">{{ $stuff->name }}</option>
+                                                    @endforeach
+                                                </select>
                                             </div>
+                                        </div>
 
-                                        <div class="col-md-6">
+
+                                        <div class="col-md-3">
                                             <div class="form-group">
                                                 <label class="control-label">Kondisi</label>
-                                                <select name="condition_id" id="condition_id" class="form-control custom-select">
-                                                    @foreach($conditions as $condition)
-                                                        <option value="{{ $condition->id }}">{{ $condition->name }}</option>
-                                                    @endforeach
+                                                {{--<input class="form-control" name="condition_id" value="1"/>--}}
+                                                <select name="items[0][condition_id]" id="items[0][condition_id]" class="form-control custom-select" readonly="">
+                                                    <option value="{{ $conditions[0]->id }}">{{ $conditions[0]->name }}</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -73,40 +73,76 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label class="control-label">Lokasi</label>
-                                                {{ Form::text('location', null, array('class' => 'form-control', 'required' => '', 'maxlength' => '255')) }}
+                                                {{ Form::text('items[0][location]', null, array('class' => 'form-control', 'required' => '', 'maxlength' => '255')) }}
                                             </div>
                                         </div>
 
-                                        <div class="col-md-12">
+                                        <div class="col-md-3">
                                             <div class="form-group">
                                                 <label class="control-label">Jumlah</label>
-                                                {{ Form::text('quantity', null, array('class' => 'form-control', 'required' => '', 'maxlength' => '255')) }}
+                                                {{ Form::text('items[0][quantity]', null, array('class' => 'form-control', 'required' => '', 'maxlength' => '255')) }}
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="control-label">Kondisi</label>
+                                                {{--<input class="form-control" name="condition_id" value="1"/>--}}
+                                                <select name="items[1][condition_id]" id="items[1][condition_id]" class="form-control custom-select" readonly="">
+                                                    <option value="{{ $conditions[1]->id }}">{{ $conditions[1]->name }}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="control-label">Lokasi</label>
+                                                {{ Form::text('items[1][location]', null, array('class' => 'form-control', 'required' => '', 'maxlength' => '255')) }}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="control-label">Jumlah</label>
+                                                {{ Form::text('items[1][quantity]', null, array('class' => 'form-control', 'required' => '', 'maxlength' => '255')) }}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="control-label">Kondisi</label>
+                                                {{--<input class="form-control" name="condition_id" value="1"/>--}}
+                                                <select name="items[2][condition_id]" id="items[2][condition_id]" class="form-control custom-select" readonly="">
+                                                    <option value="{{ $conditions[2]->id }}">{{ $conditions[2]->name }}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="control-label">Lokasi</label>
+                                                {{ Form::text('items[2][location]', null, array('class' => 'form-control', 'required' => '', 'maxlength' => '255')) }}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="control-label">Jumlah</label>
+                                                {{ Form::text('items[2][quantity]', null, array('class' => 'form-control', 'required' => '', 'maxlength' => '255')) }}
                                             </div>
                                         </div>
 
 
                                     </div>
                                     <!--/row-->
-                                    {{--<div class="row">--}}
-                                    {{--<div class="col-md-6">--}}
-                                    {{--<div class="form-group has-success">--}}
-                                    {{--<label class="control-label">Lokasi</label>--}}
-                                    {{--{{ Form::text('location', null, array('class' => 'form-control', 'required' => '', 'maxlength' => '255')) }}--}}
-                                    {{--</div>--}}
-                                    {{--</div>--}}
 
-                                    {{--</div>--}}
 
                                 </div>
                                 <div class="form-actions">
                                     <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> Save</button>
-                                    {!! Form::close() !!}
-                                    <a href="{{ url()->previous() }}" class="btn btn-inverse">Cancel</a>
-                                    {!! Form::open(['route' => ['item.destroy', $item->id], 'method' => 'DELETE']) !!}
-                                    <button type="submit" style="margin-top: 10px;" class="btn btn-danger"> <i class="fa fa-times"></i> Delete</button>
-                                    {!! Form::close() !!}
-
-                                </div>
+                                    <a href="{{ url()->previous() }}" class="btn btn-inverse">Cancel</a>                                </div>
+                                {!! Form::close() !!}
                             </div>
                         </div>
                     </div>

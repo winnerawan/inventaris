@@ -61,13 +61,13 @@
                                             <tr>
                                                 @if(Auth::user()->role == 'admin' || Auth::user()->role == 'unit')
                                                     <td>
-{{--                                                        <a href="{{ url('item/'. $item->id.'/edit') }}"> --}}
+                                                        {{--<a href="{{ url('item/'. $item->id.'/edit') }}">--}}
                                                             {{ $item->stuff->name }}
                                                         {{--</a>--}}
                                                     </td>
                                                 @else
                                                     <td>
-                                                        {{--<a href="{{ url('item/'. $item->id.'/edit') }}"> --}}
+                                                        {{--<a href="{{ url('item/'. $item->id.'/edit') }}">--}}
                                                             {{ $item->name }}
                                                         {{--</a>--}}
                                                     </td>
