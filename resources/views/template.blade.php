@@ -110,16 +110,16 @@
 <script src="{{ asset("admin/assets/plugins/styleswitcher/jQuery.style.switcher.js") }}"></script>
 <script src="{{ asset("admin/assets/plugins/datatables/jquery.dataTables.min.js") }}"></script>
 <!-- start - This is for export functionality only -->
-<script src="https://cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.flash.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
-<script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
-<script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js"></script>
-<script src="{{ asset("employee/app-assets/vendors/js/charts/echarts/echarts.js") }}" type="text/javascript"></script>
-<script src="{{ asset("employee/app-assets/vendors/js/charts/echarts/chart/pie.js") }}" type="text/javascript"></script>
-<script src="{{ asset("employee/app-assets/vendors/js/charts/echarts/chart/funnel.js") }}" type="text/javascript"></script>
+<script src="{{ asset("js/dataTables.buttons.min.js") }}"></script>
+<script src="{{ asset("js/buttons.flash.min.js") }}"></script>
+<script src="{{ asset("js/jszip.min.js") }}"></script>
+<script src="{{ asset("js/pdfmake.min.js") }}"></script>
+<script src="{{ asset("js/vfs_fonts.js") }}"></script>
+<script src="{{ asset("js/buttons.html5.min.js") }}"></script>
+<script src="{{ asset("js/buttons.print.min.js") }}"></script>
+<script src="{{ asset("js/charts/echarts/echarts.js") }}" type="text/javascript"></script>
+<script src="{{ asset("js/charts/echarts/chart/pie.js") }}" type="text/javascript"></script>
+<script src="{{ asset("js/charts/echarts/chart/funnel.js") }}" type="text/javascript"></script>
     @yield('extra-script')
 </body>
 

@@ -62,7 +62,7 @@
                                                 @if(Auth::user()->role == 'admin' || Auth::user()->role == 'unit')
                                                     <td>
                                                         <a href="{{ url('item/'. $item->id.'/edit') }}">
-                                                            {{ $item->stuff->name }}
+                                                            {{ $item->stuff->name . ' - ' . $item->stuff->program->name }}
                                                         </a>
                                                     </td>
                                                 @else
