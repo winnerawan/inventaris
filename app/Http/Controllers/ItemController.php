@@ -97,14 +97,18 @@ class ItemController extends Controller
     public function edit($id)
     {
         $item = Item::find($id);
+        $items = Item::where('stuff_id', '=', $item->stuff->id)->get();
         $user = Auth::user();
         $conditions = Condition::all();
         if (Auth::user()->role == 'admin' || Auth::user()->role == 'unit') {
             $stuffs = Stuff::all();
-            return view('item.edit')->with(['item' => $item, 'stuffs' => $stuffs, 'conditions' => $conditions]);
+//            dd($items[0]);
+            return view('item.edit')->with(['items0' => $items[0], 'items1' => $items[1], 'items2' => $items[2], 'item' => $item, 'stuffs' => $stuffs, 'conditions' => $conditions]);
         }
         $stuffs = Stuff::where('program_id', '=', $user->program_id);
-        return view('item.edit')->with(['item' => $item, 'stuffs' => $stuffs, 'conditions' => $conditions]);
+//        return view('item.edit')->with(['item' => $item, 'stuffs' => $stuffs, 'conditions' => $conditions]);
+        return view('item.edit')->with(['items0' => $items[0], 'items1' => $items[1], 'items2' => $items[2], 'item' => $item, 'stuffs' => $stuffs, 'conditions' => $conditions]);
+
     }
 
     /**

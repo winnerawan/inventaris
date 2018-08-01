@@ -53,7 +53,7 @@
                                                     <label class="control-label">Barang</label>
                                                     <select name="stuff_id" id="stuff_id" class="form-control custom-select">
                                                         @foreach($stuffs as $stuff)
-                                                            <option value="{{ $stuff->id }}">{{ $stuff->name }}</option>
+                                                            <option value="{{ $stuff->id }}">{{ $stuff->name . ' - ' . $stuff->program->name}}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>

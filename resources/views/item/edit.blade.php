@@ -53,7 +53,7 @@
                                                 <label class="control-label">Barang</label>
                                                 <select name="stuff_id" id="stuff_id" class="form-control custom-select">
                                                     @foreach($stuffs as $stuff)
-                                                        <option value="{{ $stuff->id }}">{{ $stuff->name }}</option>
+                                                        <option value="{{ $stuff->id }}">{{ $stuff->name . ' - ' . $stuff->program->name}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -73,14 +73,14 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label class="control-label">Lokasi</label>
-                                                {{ Form::text('items[0][location]', null, array('class' => 'form-control', 'required' => '', 'maxlength' => '255')) }}
+                                                {{ Form::text('items[0][location]' , $items0['location'] , array('class' => 'form-control', 'required' => '', 'maxlength' => '255')) }}
                                             </div>
                                         </div>
 
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label class="control-label">Jumlah</label>
-                                                {{ Form::text('items[0][quantity]', null, array('class' => 'form-control', 'required' => '', 'maxlength' => '255')) }}
+                                                {{ Form::text('items[0][quantity]', $items0['quantity'], array('class' => 'form-control', 'required' => '', 'maxlength' => '255')) }}
                                             </div>
                                         </div>
 
@@ -98,14 +98,14 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label class="control-label">Lokasi</label>
-                                                {{ Form::text('items[1][location]', null, array('class' => 'form-control', 'required' => '', 'maxlength' => '255')) }}
+                                                {{ Form::text('items[1][location]', $items1['location'], array('class' => 'form-control', 'required' => '', 'maxlength' => '255')) }}
                                             </div>
                                         </div>
 
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label class="control-label">Jumlah</label>
-                                                {{ Form::text('items[1][quantity]', null, array('class' => 'form-control', 'required' => '', 'maxlength' => '255')) }}
+                                                {{ Form::text('items[1][quantity]', $items1['quantity'], array('class' => 'form-control', 'required' => '', 'maxlength' => '255')) }}
                                             </div>
                                         </div>
 
@@ -122,14 +122,14 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label class="control-label">Lokasi</label>
-                                                {{ Form::text('items[2][location]', null, array('class' => 'form-control', 'required' => '', 'maxlength' => '255')) }}
+                                                {{ Form::text('items[2][location]', $items2['location'], array('class' => 'form-control', 'required' => '', 'maxlength' => '255')) }}
                                             </div>
                                         </div>
 
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label class="control-label">Jumlah</label>
-                                                {{ Form::text('items[2][quantity]', null, array('class' => 'form-control', 'required' => '', 'maxlength' => '255')) }}
+                                                {{ Form::text('items[2][quantity]', $items2['quantity'], array('class' => 'form-control', 'required' => '', 'maxlength' => '255')) }}
                                             </div>
                                         </div>
 
