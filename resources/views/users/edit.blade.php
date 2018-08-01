@@ -72,10 +72,19 @@
                                             <div class="form-group">
                                                 <label class="control-label">Roles</label>
                                                 <select name="role" id="role" class="form-control custom-select">
-                                                    <option value="admin">Admin</option>
-                                                    <option value="unit">Unit Inventaris</option>
-                                                    <option value="program_study">Prodi</option>
-
+                                                    @if($user->role == 'admin')
+                                                        <option value="admin" selected="selected">Admin</option>
+                                                        <option value="unit">Unit Inventaris</option>
+                                                        <option value="program_study">Prodi</option>
+                                                    @elseif($user->role == 'unit')
+                                                        <option value="admin">Admin</option>
+                                                        <option value="unit" selected="selected">Unit Inventaris</option>
+                                                        <option value="program_study">Prodi</option>
+                                                    @else
+                                                        <option value="admin">Admin</option>
+                                                        <option value="unit">Unit Inventaris</option>
+                                                        <option value="program_study" selected="selected">Prodi</option>
+                                                    @endif
                                                 </select>
                                             </div>
                                         </div>

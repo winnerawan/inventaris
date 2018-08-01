@@ -76,9 +76,9 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-
+        $userCurrentRole = $user->role;
         $programs = Program::all();
-        return view('users/edit')->with(['user' => $user, 'programs' => $programs]);
+        return view('users/edit')->with(['currentRole' => $userCurrentRole, 'user' => $user, 'programs' => $programs]);
     }
 
     /**
