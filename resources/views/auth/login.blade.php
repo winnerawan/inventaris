@@ -3,7 +3,7 @@
 <html class="login-page">
 <head>
     <meta charset="UTF-8">
-    <title>Sistem Inventaris Fakultas Teknik Unipma</title>
+    <title>Data Inventaris Fakultas Teknik Unipma</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <meta name="description" content="">
     <meta name="keywords" content="">
@@ -35,7 +35,7 @@
     <div class="form-box" id="login-box">
         <div class="header company-pattern">
             <img src="{{ asset("img/unipma.png") }}" height="150"><br/>
-            Sistem Inventaris                    <p> <b>Universitas PGRI Madiun</b> </p>
+            Data Inventaris                    <p> <b>Universitas PGRI Madiun</b> </p>
         </div>
 
         <form role="form" method="POST" action="{{ url('/login') }}">
