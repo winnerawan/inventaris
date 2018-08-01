@@ -85,7 +85,7 @@ class ItemController extends Controller
      */
     public function show($id)
     {
-        //
+
     }
 
     /**
@@ -116,7 +116,50 @@ class ItemController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+//        $stuff = Stuff::find($request->stuff_id);
+////        dd($stuff->id);
+//        $itemsInput = $request->get('items');
+//        $items = [];
+//        foreach ($itemsInput as $item) {
+////            dd($item);
+//            $items[] = $item;
+//            //$items[] = Item::where('stuff_id', '=', $stuff->id);
+////            $item[0]['condition_id'] = $item[0]['condition_id'];
+////            dd($item[0]['condition_id']);
+//        }
+//
+////        dd($items);
+//        $stuff->items()->saveMany($items);
+//
+//        $sum = 0;
+//        foreach ($items as $row) {
+//            $sum += $row->quantity;
+//        }
+//
+//        $this->updateQuantityStuff($stuff->id, $sum);
+//
+//
+//        return redirect('item');
+
+        $stuff = Stuff::find($request->stuff_id);
+        $itemsInput = $request->get('items');
+        $items = [];
+        foreach ($itemsInput as $item) {
+            $items[] = new Item($item);
+        }
+        $sum = 0;
+        foreach ($items as $row) {
+            $sum += $row->quantity;
+        }
+
+        $this->deleteItems($stuff->id);
+        $stuff->items()->saveMany($items);
+
+
+        $this->updateQuantityStuff($stuff->id, $sum);
+
+
+        return redirect('item');
     }
 
     /**
@@ -136,5 +179,13 @@ class ItemController extends Controller
 
         $stuff->quantity = $quantity;
         $stuff->save();
+    }
+
+    public function deleteItems($stuff_id)
+    {
+        $items = Item::where('stuff_id', '=', $stuff_id)->get();
+        foreach ($items as $item) {
+            $item->delete();
+        }
     }
 }

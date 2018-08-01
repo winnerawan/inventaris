@@ -52,7 +52,7 @@
                                                 <label>Barang</label>
                                                 <select onchange="courier_function()" name="item_id" id="item_id" class="form-control custom-select">
                                                     @foreach($items as $item)
-                                                        <option value="{{ $item->id }}" data-quantity="{{ $item->quantity }}">{{ $item->name .' - '. $item->program }}</option>
+                                                        <option value="{{ $item->id }}" data-quantity="{{ $item->quantity }}">{{ $item->name .' - '. $item->program .' - '.$item->location }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>

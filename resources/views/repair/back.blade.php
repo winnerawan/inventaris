@@ -52,7 +52,7 @@
                                                 <label>Barang</label>
                                                 <select name="repair_id" id="repair_id" class="form-control custom-select">
                                                     @foreach($repairs as $repair)
-                                                        <option value="{{ $repair->id }}">{{ $repair->item->stuff->name }}</option>
+                                                        <option value="{{ $repair->id }}">{{ $repair->item->stuff->name .' - '.$item->location }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>

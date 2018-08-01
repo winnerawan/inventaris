@@ -61,9 +61,9 @@
                                             <tr>
                                                 @if(Auth::user()->role == 'admin' || Auth::user()->role == 'unit')
                                                     <td>
-                                                        {{--<a href="{{ url('item/'. $item->id.'/edit') }}">--}}
+                                                        <a href="{{ url('item/'. $item->id.'/edit') }}">
                                                             {{ $item->stuff->name }}
-                                                        {{--</a>--}}
+                                                        </a>
                                                     </td>
                                                 @else
                                                     <td>
@@ -130,7 +130,7 @@
                             $('#example23').DataTable({
                                 dom: 'Bfrtip',
                                 buttons: [
-                                    'copy', 'excel', 'pdf', 'print'
+                                    'excel', 'pdf', 'print'
                                 ]
                             });
                         </script>

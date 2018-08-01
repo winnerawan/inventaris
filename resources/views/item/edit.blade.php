@@ -38,7 +38,7 @@
                 <div class="col-lg-12">
                     <div class="card card-outline-info">
                         <div class="card-header">
-                            <h4 class="m-b-0 text-white">Form Tambah Barang</h4>
+                            <h4 class="m-b-0 text-white">Form Edit Barang</h4>
                         </div>
                         <div class="card-body">
                             {!! Form::model($item, ['route' => ['item.update', $item->id], 'method' => 'PUT', 'files' => true]) !!}                            <div class="form-group">

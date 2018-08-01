@@ -132,6 +132,9 @@ class RepairController extends Controller
         $user = Auth::user();
         if ($user->role == 'admin' || $user->role == 'unit') {
             $repairs = Repair::all();
+            if (sizeof($repairs)==0) {
+                return redirect('repair');
+            }
             return view('repair.back')->with(['repairs' => $repairs]);
         } else {
             $repairs = Repair::join('items', 'items.id', '=', 'repairs.item_id')->join('stuffs', 'stuffs.id', '=', 'items.stuff_id')->where('stuffs.program_id', '=', $user->program_id)->get();
@@ -162,7 +165,7 @@ class RepairController extends Controller
         return $j;
     }
 
-    public function update_condition_fixed_item(Request $request)
+    public function fixed(Request $request)
     {
         $repair = Repair::find($request->repair_id);
         $item = Item::find($repair->item_id);
