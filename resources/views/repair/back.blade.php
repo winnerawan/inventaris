@@ -20,7 +20,7 @@
                 </ol>
             </div>
             <div class="">
-                <button class="right-side-toggle waves-effect waves-light btn-inverse btn btn-circle btn-sm pull-right m-l-10"><i class="ti-settings text-white"></i></button>
+                <button class="right-side-toggle waves-effect waves-light btn-inverse btn btn-circle btn-sm pull-right m-l-10"><i class=""></i></button>
             </div>
         </div>
         <!-- ============================================================== -->
@@ -50,11 +50,19 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Barang</label>
-                                                <select name="repair_id" id="repair_id" class="form-control custom-select">
-                                                    @foreach($repairs as $repair)
-                                                        <option value="{{ $repair->id }}">{{ $repair->item->stuff->name .' - '.$item->location }}</option>
-                                                    @endforeach
-                                                </select>
+                                                @if(Auth::user()->role == 'admin' || Auth::user()->role== 'unit')
+                                                    <select name="repair_id" id="repair_id" class="form-control custom-select">
+                                                        @foreach($repairs as $repair)
+                                                            <option value="{{ $repair->id }}">{{ $repair->item->stuff->name .' - '.$repair->item->stuff->program->name .' - '.$repair->item->location }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                @else
+                                                    <select name="repair_id" id="repair_id" class="form-control custom-select">
+                                                        @foreach($repairs as $repair)
+                                                            <option value="{{ $repair->id }}">{{ $repair->name .' - '.$repair->location }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                @endif
                                             </div>
                                         </div>
                                         <!--/span-->

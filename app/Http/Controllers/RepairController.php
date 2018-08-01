@@ -24,9 +24,13 @@ class RepairController extends Controller
         $user = Auth::user();
         if (Auth::user()->role == 'admin' || Auth::user()->role == 'unit') {
             $repairs = Repair::all();
+//            foreach ($repairs as $repair) {
+//                dd($repair->item->stuff->name);
+//            }
             return view('repair.index')->with(['repairs' => $repairs]);
         } else {
             $repairs = Repair::join('items', 'items.id', '=', 'repairs.item_id')->join('stuffs', 'stuffs.id', '=', 'items.stuff_id')->join('conditions', 'conditions.id', '=', 'items.condition_id')->where('stuffs.program_id', '=', $user->program_id)->addSelect('stuffs.name','items.id', 'repairs.quantity', 'items.location', 'conditions.name as condition', 'repairs.created_at')->get();
+
             return view('repair.index')->with(['repairs' => $repairs]);
         }
     }
@@ -138,6 +142,9 @@ class RepairController extends Controller
             return view('repair.back')->with(['repairs' => $repairs]);
         } else {
             $repairs = Repair::join('items', 'items.id', '=', 'repairs.item_id')->join('stuffs', 'stuffs.id', '=', 'items.stuff_id')->where('stuffs.program_id', '=', $user->program_id)->get();
+            foreach ($repairs as $repair) {
+//                dd($repair->name);
+            }
             if (sizeof($repairs)==0) {
                 return redirect('repair');
             }
@@ -150,11 +157,12 @@ class RepairController extends Controller
     {
         $item = Item::find($id);
         $item->quantity = $item->quantity - $qty;
-        if ($item->quantity == 0) {
-            $item->delete();
-        } else {
-            $item->save();
-        }
+        $item->save();
+//        if ($item->quantity == 0) {
+//            $item->delete();
+//        } else {
+//            $item->save();
+//        }
 
     }
 
