@@ -139,47 +139,18 @@
                             $('#example23').DataTable({
                                 dom: 'Bfrtip',
                                 buttons: [
-                                    {
-                                        extend: 'pdfHtml5',
-                                        title: 'Laporan Data Inventaris' + '\n' + 'Fakultas Teknik' + '\n' + 'UNIVERSITAS PGRI MADIUN' + '\n' + 'Jl. Setia Budi No. 85 Madiun, Jawa Timur, Indonesia',
-                                        fixedColumns: true,
-                                        autoWidth: true,
-                                        exportOptions: {
-                                            columns: [0, 1, 2, 3]
-                                        },
-                                        customize: function (doc) {
-                                            doc.styles.title = {
-                                                color: 'black',
-                                                fontSize: '12',
-                                                background: 'white',
-                                                alignment: 'center'
-                                            }
-                                        },
-                                        customize: function (doc) {
-                                            doc.content[1].table.widths =
-                                                Array(doc.content[1].table.body[0].length + 1).join('*').split('');
-                                        },
 
-                                    },
                                     {
                                         extend: 'excelHtml5',
                                         title: 'Laporan Data Inventaris' + '\n' + 'Fakultas Teknik' + '\n' + 'UNIVERSITAS PGRI MADIUN' + '\n' + 'Jl. Setia Budi No. 85 Madiun, Jawa Timur, Indonesia',
 
                                     },
                                     {
-                                        extend: 'print',
-                                        title: 'Laporan Data Inventaris' + '\n' + 'Fakultas Teknik' + '\n' + 'UNIVERSITAS PGRI MADIUN' + '\n' + 'Jl. Setia Budi No. 85 Madiun, Jawa Timur, Indonesia',
-
-                                        customize: function (doc) {
-                                            doc.styles.title = {
-                                                color: 'black',
-                                                fontSize: '12',
-                                                background: 'white',
-                                                alignment: 'center'
-                                            }
-                                        },
-
-                                    },
+                                        text: 'PDF',
+                                        action: function (e, dt, node, config) {
+                                            window.open("{{ url('reportItems') }}");
+                                        }
+                                    }
 
 
                                 ]

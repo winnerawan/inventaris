@@ -33,3 +33,6 @@ Route::post('repairfixed', 'RepairController@fixed')->name('repair.fixed');
 Route::get('getJsonQty/{id}', 'RepairController@getJsonQty');
 Route::get('/user/change', 'UserController@showFormChangePassword');
 Route::put('/user/updatePassword', 'UserController@updatePassword')->name('user.change');
+Route::get('/reportStuffs', 'ReportController@generateReportStuffs');
+Route::get('/reportItems', 'ReportController@generateReportItems');
+
