@@ -146,8 +146,8 @@
                             {{--<li role="separator" class="divider"></li>--}}
                             {{--<li><a href="#"><i class="ti-user"></i> My Profile</a></li>--}}
                             {{--<li role="separator" class="divider"></li>--}}
-                            {{--<li><a href="#"><i class="ti-settings"></i> Account Setting</a></li>--}}
-                            {{--<li role="separator" class="divider"></li>--}}
+                            <li><a href="{{ url('user/change') }}"><i class="ti-settings"></i> Ganti Password</a></li>
+                            <li role="separator" class="divider"></li>
                             <li><a href="{{ url('/logout') }}"
                                    onclick="event.preventDefault();
                                     document.getElementById('logout-form').submit();"><i class="fa fa-power-off"></i> Logout</a>

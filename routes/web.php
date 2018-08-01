@@ -30,5 +30,6 @@ Route::resource('/item', 'ItemController');
 Route::resource('/repair', 'RepairController');
 Route::get('repairback', 'RepairController@back')->name('repair.back');
 Route::post('repairfixed', 'RepairController@fixed')->name('repair.fixed');
-Route::get('getJsonQty/{id}', 'AdminAuth\RepairController@getJsonQty');
-
+Route::get('getJsonQty/{id}', 'RepairController@getJsonQty');
+Route::get('/user/change', 'UserController@showFormChangePassword');
+Route::put('/user/updatePassword', 'UserController@updatePassword')->name('user.change');
