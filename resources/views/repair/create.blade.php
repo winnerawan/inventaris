@@ -50,7 +50,8 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Barang</label>
-                                                <select onchange="courier_function()" name="item_id" id="item_id" class="form-control custom-select">
+                                                <select name="item_id" id="item_id" class="form-control custom-select">
+                                                    <option value="0">--pilih--</option>
                                                     @foreach($items as $item)
                                                         <option value="{{ $item->id }}" data-quantity="{{ $item->quantity }}">{{ $item->name .' - '. $item->program .' - '.$item->location }}</option>
                                                     @endforeach
@@ -62,9 +63,10 @@
                                             <div class="form-group">
                                                 <label>Jumlah</label>
                                                 <select name="quantity" id="quantity" class="form-control custom-select">
-                                                    @for($i=1; $i<=$item->quantity; $i++)
-                                                        <option value="{{ $i }}" data-qty="{{ $i }}">{{ $i }}</option>
-                                                    @endfor
+                                                    <option value="0">--pilih--</option>
+                                                    {{--@for($i=1; $i<=$item->quantity; $i++)--}}
+                                                        {{--<option value="{{ $i }}" class="{{ $item->id }}" data-qty="{{ $i }}" data-chained="{{ $i }}">{{ $i }}</option>--}}
+                                                    {{--@endfor--}}
                                                 </select>
                                             </div>
                                         </div>
@@ -87,6 +89,28 @@
 @section('extra-script')
 
                     <script>
+
+                        $alloption=$("#quantity").html();
+                        $("#item_id").change(function(){
+
+                            // $("#quantity").html($alloption);
+
+                            var val=$("#item_id").find(":selected").data("quantity");
+
+                            console.log(val);
+                            $("#quantity option[value!="+val+"]").remove();
+                            for (var i=1; i<=val; i++) {
+                                // $("#quantity").append($('<option></option>').val(val[i]).html([i]));
+                                $('#quantity')
+                                    .append($("<option></option>")
+                                        .attr("value",val[i])
+                                        .text(i));
+                            }
+
+                        });
+
+                        // $("#quantity").chained("#item_id");
+
                         {{--jQuery(document).ready(function($){--}}
                             {{--$('#stuff_id').change(function(){--}}
                                 {{--$.get("{{ url('http://localhost:8000/getJsonQty/3')}}",--}}
@@ -101,9 +125,9 @@
                                     {{--});--}}
                             {{--});--}}
                         {{--});--}}
-                        function courier_function(e) {
-                            var qty = $("#item_id option:selected").data('qty');
-
-                        }
+                        // function courier_function(e) {
+                        //     var qty = $("#item_id option:selected").data('qty');
+                        //
+                        // }
                     </script>
 @endsection

@@ -102,7 +102,7 @@ class ItemController extends Controller
     public function edit($id)
     {
         $item = Item::find($id);
-        $items = Item::where('stuff_id', '=', $item->stuff->id)->get();
+        $items = Item::where('stuff_id', '=', $item->stuff->id)->where('location', '=', $item->location)->get();
         $user = Auth::user();
         $conditions = Condition::all();
         if (Auth::user()->role == 'admin' || Auth::user()->role == 'unit') {
@@ -202,7 +202,7 @@ class ItemController extends Controller
 
     public function deleteItems($stuff_id)
     {
-        $items = Item::where('stuff_id', '=', $stuff_id)->get();
+        $items = Item::where('stuff_id', '=', $stuff_id)->where('location', '=', $stuff_id->location)->get();
         foreach ($items as $item) {
 //            $item->delete();
             if ($item->location == $item->location) {
