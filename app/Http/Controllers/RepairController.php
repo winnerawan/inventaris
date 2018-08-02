@@ -57,7 +57,7 @@ class RepairController extends Controller
                 ->join('conditions', 'conditions.id', '=', 'items.condition_id')
                 ->join('programs', 'programs.id', '=', 'stuffs.program_id')
                 ->where('stuffs.program_id', '=', $user->program_id)
-                ->where('items.condition_id', '=', 2)->where('items.quantity', '!=', 1)
+                ->where('items.condition_id', '=', 2)->where('items.quantity', '!=', 0)
                 ->addSelect('stuffs.name', 'programs.name as program', 'items.id', 'items.quantity', 'items.location', 'items.condition_id', 'conditions.name as condition')->get();
             if (sizeof($items)==0) {
                 return redirect('item');
