@@ -19,9 +19,7 @@
                     <li class="breadcrumb-item">Pengguna</li>
                 </ol>
             </div>
-            <div class="">
-                <button class="right-side-toggle waves-effect waves-light btn-inverse btn btn-circle btn-sm pull-right m-l-10"><i class=""></i></button>
-            </div>
+
         </div>
         <!-- ============================================================== -->
         <!-- End Bread crumb and right sidebar toggle -->
@@ -101,5 +99,8 @@
                     </div>
                 </div>
             </div>
+            </div>
+        </div>
+    </div>
             <!-- Row -->
 @endsection

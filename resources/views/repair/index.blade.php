@@ -20,9 +20,7 @@
                     <li class="breadcrumb-item">Perbaikan</li>
                 </ol>
             </div>
-            <div>
-                <button class="right-side-toggle waves-effect waves-light btn-inverse btn btn-circle btn-sm pull-right m-l-10"><i class=""></i></button>
-            </div>
+
         </div>
         <!-- ============================================================== -->
         <!-- End Bread crumb and right sidebar toggle -->
@@ -39,7 +37,6 @@
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">Data Perbaikan</h4>
-                            <h6 class="card-subtitle">Export data to Copy, Excel, PDF & Print</h6>
                             <div class="table-responsive m-t-40">
                                 <table id="example23" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
                                     <thead>
@@ -74,6 +71,10 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('extra-script')
@@ -139,4 +140,5 @@
                 ]
             })
         </script>
+
 @endsection

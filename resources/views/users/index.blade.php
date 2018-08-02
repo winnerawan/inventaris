@@ -20,9 +20,7 @@
                     <li class="breadcrumb-item">Program Studi</li>
                 </ol>
             </div>
-            <div>
-                <button class="right-side-toggle waves-effect waves-light btn-inverse btn btn-circle btn-sm pull-right m-l-10"><i class=""></i></button>
-            </div>
+
         </div>
         <!-- ============================================================== -->
         <!-- End Bread crumb and right sidebar toggle -->
@@ -67,5 +65,9 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 

@@ -153,5 +153,9 @@
                         </div>
                     </div>
                 </div>
+                </div>
+            </div>
+        </div>
+    </div>
                 <!-- Row -->
 @endsection
