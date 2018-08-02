@@ -12,6 +12,11 @@ use Illuminate\Support\Facades\Auth;
 
 class ItemController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -71,7 +76,7 @@ class ItemController extends Controller
         $stuff->items()->saveMany($items);
 
 
-        $this->updateQuantityStuff($stuff->id, $sum);
+        $this->updateQuantityStuff($request, $stuff->id, $sum);
 
 
         return redirect('item');
@@ -160,7 +165,7 @@ class ItemController extends Controller
         $stuff->items()->saveMany($items);
 
 
-        $this->updateQuantityStuff($stuff->id, $sum);
+        $this->updateQuantityStuff($request, $stuff->id, $sum);
 
 
         return redirect('item');
@@ -177,15 +182,21 @@ class ItemController extends Controller
         //
     }
 
-    public function updateQuantityStuff($id, $quantity)
+    public function updateQuantityStuff(Request $request, $id, $quantity)
     {
         $stuff = Stuff::find($id);
-        if ($stuff->quantity != 0) {
-            $stuff->quantity = $stuff->quantity + $quantity;
-        } else {
+        if ($request->isMethod('put')) {
             $stuff->quantity = $quantity;
+        } else if ($request->isMethod('post')) {
+            if ($stuff->quantity != 0) {
+                $stuff->quantity = $stuff->quantity + $quantity;
+            }
+//        if ($stuff->quantity != 0) {
+//            $stuff->quantity = $stuff->quantity + $quantity;
+//        } else {
+//            $stuff->quantity = $quantity;
+//        }
         }
-
         $stuff->save();
     }
 
@@ -193,7 +204,12 @@ class ItemController extends Controller
     {
         $items = Item::where('stuff_id', '=', $stuff_id)->get();
         foreach ($items as $item) {
-            $item->delete();
+//            $item->delete();
+            if ($item->location == $item->location) {
+                $item->delete();
+            } else {
+                return;
+            }
         }
     }
 }

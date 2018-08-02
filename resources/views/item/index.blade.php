@@ -67,9 +67,9 @@
                                                     </td>
                                                 @else
                                                     <td>
-                                                        {{--<a href="{{ url('item/'. $item->id.'/edit') }}">--}}
+                                                        <a href="{{ url('item/'. $item->id.'/edit') }}">
                                                         {{ $item->name }}
-                                                        {{--</a>--}}
+                                                        </a>
                                                     </td>
                                                 @endif
                                                 <td>{{ $item->location  }}</td>
