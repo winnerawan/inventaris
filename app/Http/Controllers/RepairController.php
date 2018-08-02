@@ -141,11 +141,12 @@ class RepairController extends Controller
             }
             return view('repair.back')->with(['repairs' => $repairs]);
         } else {
-            $repairs = Repair::join('items', 'items.id', '=', 'repairs.item_id')->join('stuffs', 'stuffs.id', '=', 'items.stuff_id')->where('stuffs.program_id', '=', $user->program_id)->get();
+            $repairs = Repair::join('items', 'items.id', '=', 'repairs.item_id')->join('stuffs', 'stuffs.id', '=', 'items.stuff_id')->where('stuffs.program_id', '=', $user->program_id)->addSelect('stuffs.name', 'items.location', 'repairs.id', 'repairs.item_id', 'repairs.quantity', 'repairs.created_at')->get();
             foreach ($repairs as $repair) {
 //                dd($repair->name);
             }
-            if (sizeof($repairs)==0) {
+//            dd($repairs);
+            if (sizeof  ($repairs)==0) {
                 return redirect('repair');
             }
             return view('repair.back')->with(['repairs' => $repairs]);
