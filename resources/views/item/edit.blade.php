@@ -52,9 +52,15 @@
                                             <div class="form-group">
                                                 <label class="control-label">Barang</label>
                                                 <select name="stuff_id" id="stuff_id" class="form-control custom-select">
-                                                    @foreach($stuffs as $stuff)
-                                                        <option value="{{ $stuff->id }}">{{ $stuff->name . ' - ' . $stuff->program->name}}</option>
-                                                    @endforeach
+                                                    @if(Auth::user()->role == 'admin' || Auth::user()->role == 'unit')
+                                                        @foreach($stuffs as $stuff)
+                                                            <option value="{{ $stuff->id }}">{{ $stuff->name . ' - ' . $stuff->program->name}}</option>
+                                                        @endforeach
+                                                    @else
+                                                        @foreach($stuffs as $stuff)
+                                                            <option value="{{ $stuff->id }}">{{ $stuff->name . ' - ' . $stuff->program->name}}</option>
+                                                        @endforeach
+                                                    @endif
                                                 </select>
                                             </div>
                                         </div>

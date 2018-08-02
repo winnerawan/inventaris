@@ -109,10 +109,12 @@ class ItemController extends Controller
             $stuffs = Stuff::all();
 //            dd($items[0]);
             return view('item.edit')->with(['items0' => $items[0], 'items1' => $items[1], 'items2' => $items[2], 'item' => $item, 'stuffs' => $stuffs, 'conditions' => $conditions]);
-        }
-        $stuffs = Stuff::where('program_id', '=', $user->program_id);
+        } else {
+            $stuffs = Stuff::where('program_id', '=', $user->program_id)->get();
 //        return view('item.edit')->with(['item' => $item, 'stuffs' => $stuffs, 'conditions' => $conditions]);
-        return view('item.edit')->with(['items0' => $items[0], 'items1' => $items[1], 'items2' => $items[2], 'item' => $item, 'stuffs' => $stuffs, 'conditions' => $conditions]);
+            return view('item.edit')->with(['items0' => $items[0], 'items1' => $items[1], 'items2' => $items[2], 'item' => $item, 'stuffs' => $stuffs, 'conditions' => $conditions]);
+
+        }
 
     }
 
@@ -161,7 +163,7 @@ class ItemController extends Controller
             $sum += $row->quantity;
         }
 
-        $this->deleteItems($stuff->id);
+        $this->deleteItems($request, $stuff->id);
         $stuff->items()->saveMany($items);
 
 
@@ -186,10 +188,13 @@ class ItemController extends Controller
     {
         $stuff = Stuff::find($id);
         if ($request->isMethod('put')) {
-            $stuff->quantity = $quantity;
+//            $stuff->quantity = $quantity;
+//            $stuff->quantity = $stuff->quantity + $quantity;
         } else if ($request->isMethod('post')) {
             if ($stuff->quantity != 0) {
                 $stuff->quantity = $stuff->quantity + $quantity;
+            } else {
+                $stuff->quantity = $quantity;
             }
 //        if ($stuff->quantity != 0) {
 //            $stuff->quantity = $stuff->quantity + $quantity;
@@ -200,9 +205,15 @@ class ItemController extends Controller
         $stuff->save();
     }
 
-    public function deleteItems($stuff_id)
+    public function deleteItems(Request $request, $stuff_id)
     {
-        $items = Item::where('stuff_id', '=', $stuff_id)->where('location', '=', $stuff_id->location)->get();
+        $arr = $request->get('items');
+        $location = "";
+        foreach ($arr as $loc) {
+//            dd($loc['location']);
+            $location = $loc['location'];
+        }
+        $items = Item::where('stuff_id', '=', $stuff_id)->where('location', '=', $location)->get();
         foreach ($items as $item) {
 //            $item->delete();
             if ($item->location == $item->location) {
