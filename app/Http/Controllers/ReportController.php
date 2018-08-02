@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Item;
+use App\Repair;
 use App\Stuff;
 use Illuminate\Http\Request;
 use Fpdf;
@@ -12,18 +13,18 @@ class ReportController extends Controller
 {
     public function judul(\Codedge\Fpdf\Fpdf\Fpdf $fpdf, $teks1, $teks2, $teks3, $teks4, $teks5)
     {
-        $fpdf->Cell(25);
+        $fpdf->Cell(20);
         $fpdf->SetFont("Times", "B", "12");
         $fpdf->Cell(0, 5, $teks1, 0, 1, "C");
-        $fpdf->Cell(25);
+        $fpdf->Cell(20);
         $fpdf->Cell(0, 5, $teks2, 0, 1, "C");
-        $fpdf->Cell(25);
+        $fpdf->Cell(20);
         $fpdf->SetFont("Times", "B", "15");
         $fpdf->Cell(0, 5, $teks3, 0, 1, "C");
-        $fpdf->Cell(25);
+        $fpdf->Cell(20);
         $fpdf->SetFont("Times", "I", "8");
         $fpdf->Cell(0, 5, $teks4, 0, 1, "C");
-        $fpdf->Cell(25);
+        $fpdf->Cell(20);
         $fpdf->Cell(0, 2, $teks5, 0, 1, "C");
     }
 
@@ -63,6 +64,29 @@ class ReportController extends Controller
         $fpdf->Output();
     }
 
+    public function generateReportRepairs()
+    {
+        $user = Auth::user();
+        $repairs_unit = Repair::all();
+
+        $repairs_prodi = Repair::join('items', 'items.id', '=', 'repairs.item_id')->join('stuffs', 'stuffs.id', '=', 'items.stuff_id')->join('conditions', 'conditions.id', '=', 'items.condition_id')->where('stuffs.program_id', '=', $user->program_id)->addSelect('stuffs.name','items.id', 'repairs.quantity', 'items.location', 'conditions.name as condition', 'repairs.created_at')->get();
+        $header = array('Nama', 'Kondisi', 'Jumlah', 'Tanggal');
+        $fpdf = new \Codedge\Fpdf\Fpdf\Fpdf();
+        $fpdf->AddPage("P", "A5");
+        $fpdf->SetFont('Courier', 'B', 18);
+        $this->letak($fpdf, "img/unipma.png");
+        $this->judul($fpdf, "Laporan Data Inventaris", "Fakultas Teknik", "UNIVERSITAS PGRI MADIUN", "Jl. Auri No. 6 Madiun, Jawa Timur, Indonesia", "Telp: 0351-462986 Email: rektorat@unipma.ac.id");
+        $this->garis($fpdf);
+        $fpdf->Cell(1000, 10, "", null);
+        $fpdf->Ln();
+        if ($user->role == 'admin' || $user->role == 'unit') {
+            $this->FancyTableRepairs($fpdf, $header, $repairs_unit);
+        } else {
+            $this->FancyTableRepairsProdi($fpdf, $header, $repairs_prodi);
+        }
+        $fpdf->Output();
+    }
+
     // Colored table
     public function FancyTableItems(\Codedge\Fpdf\Fpdf\Fpdf $fpdf, $header, $data)
     {
@@ -73,7 +97,7 @@ class ReportController extends Controller
         $fpdf->SetLineWidth(.3);
         $fpdf->SetFont('', 'B');
         // Header
-        $w = array(50, 32, 28, 20);
+        $w = array(50, 32, 26, 18);
         for ($i = 0; $i < count($header); $i++)
             $fpdf->Cell($w[$i], 7, $header[$i], 1, 0, 'C', true);
         $fpdf->Ln();
@@ -184,4 +208,74 @@ class ReportController extends Controller
         // Closing line
         $fpdf->Cell(array_sum($w), 0, '', 'T');
     }
+
+    // Colored table
+    public function FancyTableRepairs(\Codedge\Fpdf\Fpdf\Fpdf $fpdf, $header, $data)
+    {
+        // Colors, line width and bold font
+        $fpdf->SetFillColor(230, 242, 242);
+//        $fpdf->SetTextColor(0, 0, 0);
+//        $fpdf->SetDrawColor(0,0,0);
+        $fpdf->SetLineWidth(.3);
+        $fpdf->SetFont('', 'B');
+        // Header
+        $w = array(50, 32, 28, 20);
+        for ($i = 0; $i < count($header); $i++)
+            $fpdf->Cell($w[$i], 7, $header[$i], 1, 0, 'C', true);
+        $fpdf->Ln();
+        // Color and font restoration
+//        $fpdf->SetFillColor(230,242,255);
+        $fpdf->SetTextColor(0);
+        $fpdf->SetFont('');
+        // Data
+        $fill = false;
+        foreach ($data as $row) {
+//            dd($row->stuff_id);
+            $fpdf->Cell($w[0], 6, $row->item->stuff->name, 'LR', 0, 'L', $fill);
+            $fpdf->Cell($w[1], 6, $row->condition->name, 'LR', 0, 'L', $fill);
+            $fpdf->Cell($w[2], 6, $row->quantity, 'LR', 0, 'R', $fill);
+            $fpdf->Cell($w[3], 6, $row->created_at, 'LR', 0, 'R', $fill);
+            $fpdf->Ln();
+            $fill = !$fill;
+        }
+        // Closing line
+        $fpdf->Cell(array_sum($w), 0, '', 'T');
+    }
+
+    // Colored table
+    public function FancyTableRepairsProdi(\Codedge\Fpdf\Fpdf\Fpdf $fpdf, $header, $data)
+    {
+        // Colors, line width and bold font
+        $fpdf->SetFillColor(230, 242, 242);
+//        $fpdf->SetTextColor(0, 0, 0);
+//        $fpdf->SetDrawColor(0,0,0);
+        $fpdf->SetLineWidth(.3);
+        $fpdf->SetFont('', 'B');
+        // Header
+        $w = array(50, 32, 28, 20);
+        for ($i = 0; $i < count($header); $i++)
+            $fpdf->Cell($w[$i], 7, $header[$i], 1, 0, 'C', true);
+        $fpdf->Ln();
+        // Color and font restoration
+//        $fpdf->SetFillColor(230,242,255);
+        $fpdf->SetTextColor(0);
+        $fpdf->SetFont('');
+        // Data
+        $fill = false;
+        foreach ($data as $row) {
+//            dd($row->stuff_id);
+            $fpdf->Cell($w[0], 6, $row->name, 'LR', 0, 'L', $fill);
+            $fpdf->Cell($w[1], 6, $row->condition, 'LR', 0, 'L', $fill);
+            $fpdf->Cell($w[2], 6, $row->quantity, 'LR', 0, 'R', $fill);
+            $fpdf->Cell($w[3], 6, $row->created_at, 'LR', 0, 'R', $fill);
+            $fpdf->Ln();
+            $fill = !$fill;
+        }
+        // Closing line
+        $fpdf->Cell(array_sum($w), 0, '', 'T');
+    }
+
+
 }
+
+

@@ -122,8 +122,21 @@
             $('#example23').DataTable({
                 dom: 'Bfrtip',
                 buttons: [
-                    'excel', 'pdf', 'print'
+
+                    {
+                        extend: 'excelHtml5',
+                        title: 'Laporan Data Inventaris' + '\n' + 'Fakultas Teknik' + '\n' + 'UNIVERSITAS PGRI MADIUN' + '\n' + 'Jl. Setia Budi No. 85 Madiun, Jawa Timur, Indonesia',
+
+                    },
+                    {
+                        text: 'PDF',
+                        action: function (e, dt, node, config) {
+                            window.open("{{ url('reportRepairs') }}");
+                        }
+                    }
+
+
                 ]
-            });
+            })
         </script>
 @endsection

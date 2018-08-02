@@ -69,7 +69,7 @@
                                             <div class="form-group">
                                                 <label class="control-label">Prodi</label>
                                                 <select name="program_id" id="program_id" class="form-control custom-select">
-                                                    @if(Auth::user()->role == 'admin' || Auth::user()->role == 'admin')
+                                                    @if(Auth::user()->role == 'admin' || Auth::user()->role == 'unit')
                                                         @foreach($programs as $program)
                                                             <option value="{{ $program->id }}">{{ $program->name }}</option>
                                                         @endforeach

@@ -180,8 +180,12 @@ class ItemController extends Controller
     public function updateQuantityStuff($id, $quantity)
     {
         $stuff = Stuff::find($id);
+        if ($stuff->quantity != 0) {
+            $stuff->quantity = $stuff->quantity + $quantity;
+        } else {
+            $stuff->quantity = $quantity;
+        }
 
-        $stuff->quantity = $quantity;
         $stuff->save();
     }
 

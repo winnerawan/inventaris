@@ -35,4 +35,6 @@ Route::get('/user/change', 'UserController@showFormChangePassword');
 Route::put('/user/updatePassword', 'UserController@updatePassword')->name('user.change');
 Route::get('/reportStuffs', 'ReportController@generateReportStuffs');
 Route::get('/reportItems', 'ReportController@generateReportItems');
+Route::get('/reportRepairs', 'ReportController@generateReportRepairs');
+
 
