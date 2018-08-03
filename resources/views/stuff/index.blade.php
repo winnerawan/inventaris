@@ -41,6 +41,7 @@
                                 <table id="example23" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
                                     <thead>
                                     <tr>
+                                        <th>No</th>
                                         <th>Nama</th>
                                         <th>Kategori</th>
                                         <th>Prodi</th>
@@ -49,8 +50,9 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($stuffs as $stuff)
+                                    @foreach($stuffs as $row => $stuff)
                                     <tr>
+                                        <td>{{ $row+1 }}</td>
                                         <td><a href="{{ url('stuff/'. $stuff->id.'/edit') }}"> {{ $stuff->name }}</a></td>
                                         <td><a href="{{ url('category/'. $stuff->category_id.'/edit') }}"> {{ $stuff->category->name }}</a></td>
                                         <td>{{ $stuff->program->name  }}</td>

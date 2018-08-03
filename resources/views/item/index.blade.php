@@ -47,6 +47,7 @@
                                        cellspacing="0" width="100%">
                                     <thead>
                                     <tr>
+                                        <th>No</th>
                                         <th>Nama</th>
                                         <th>Lokasi</th>
                                         <th>Kondisi</th>
@@ -55,11 +56,13 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($items as $item)
+                                    @foreach($items as $row => $item)
                                         @if($item->quantity==0)
                                         @else
                                             <tr>
-                                                @if(Auth::user()->role == 'admin' || Auth::user()->role == 'unit')
+                                                <td>{{ $row+1 }}</td>
+
+                                            @if(Auth::user()->role == 'admin' || Auth::user()->role == 'unit')
                                                     <td>
                                                         <a href="{{ url('item/'. $item->id.'/edit') }}">
                                                             {{ $item->stuff->name . ' - ' . $item->stuff->program->name }}

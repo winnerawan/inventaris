@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Item;
 use App\Repair;
 use App\Stuff;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Fpdf;
 use Illuminate\Support\Facades\Auth;
@@ -46,6 +47,24 @@ class ReportController extends Controller
         $fpdf->Image($gambar, 10, 10, 20, 20);
     }
 
+    public function ttd(\Codedge\Fpdf\Fpdf\Fpdf $fpdf)
+    {
+        $fpdf->SetY(-60);
+        $fpdf->SetFont("Times", "B", "8");
+        $fpdf->Cell(0, 5,  "Madiun, ". Carbon::today('Asia/Jakarta')->format('d F Y'), 0, 1, "R");
+        $fpdf->Cell(122, 5, "Mengetahui", 0, 1, "R");
+        $fpdf->Cell(127, 3, "Ketua Unit Inventaris", 0, 1, "R");
+        $fpdf->SetFont("Times", "U", "8");
+        $fpdf->Cell(0, 15, "", 0, 1, "C");
+        $fpdf->SetFont("Times", "BU", "8");
+        $fpdf->Cell(127, 3, "Andi Rahman Putera", 0, 1, "R");
+        $fpdf->Cell(0, 0, "", 0, 1, "C");
+        $fpdf->SetFont("Times", "", "8");
+        $fpdf->Cell(125.5, 3, "NIDN: 0711048701", 0, 1, "R");
+
+        $fpdf->Footer();
+    }
+
     public function generateReportItems()
     {
         $user = Auth::user();
@@ -66,6 +85,7 @@ class ReportController extends Controller
         } else {
             $this->FancyTableItemsProdi($fpdf, $header, $items_prodi);
         }
+        $this->ttd($fpdf);
         $fpdf->Output();
     }
 
@@ -89,6 +109,7 @@ class ReportController extends Controller
         } else {
             $this->FancyTableRepairsProdi($fpdf, $header, $repairs_prodi);
         }
+        $this->ttd($fpdf);
         $fpdf->Output();
     }
 
@@ -177,6 +198,7 @@ class ReportController extends Controller
         $fpdf->Cell(1000, 10, "", null);
         $fpdf->Ln();
         $this->FancyTableStuffs($fpdf, $header, $stuffs);
+        $this->ttd($fpdf);
 
         $fpdf->Output();
     }
@@ -211,6 +233,7 @@ class ReportController extends Controller
             $fill = !$fill;
         }
         // Closing line
+
         $fpdf->Cell(array_sum($w), 0, '', 'T');
     }
 

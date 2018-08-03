@@ -41,6 +41,7 @@
                                 <table id="example23" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
                                     <thead>
                                     <tr>
+                                        <th>No</th>
                                         <th>Nama Barang</th>
                                         <th>Kondisi</th>
                                         <th>Jumlah</th>
@@ -48,9 +49,10 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($repairs as $repair)
+                                    @foreach($repairs as $row => $repair)
                                         @if(Auth::user()->role == 'program_study')
                                             <tr>
+                                                <td>{{ $row+1 }}</td>
                                                 <td><a href="{{ url('repair/'. $repair->id.'/edit') }}"> </a>{{ $repair->name }}</td>
                                                 <td>{{ $repair->condition }}</td>
                                                 <td>{{ $repair->quantity }}</td>
@@ -58,7 +60,8 @@
                                             </tr>
                                          @else
                                          <tr>
-                                            <td><a href="{{ url('repair/'. $repair->id.'/edit') }}"> </a>{{ $repair->item->stuff->name }}</td>
+                                             <td>{{ $row+1 }}</td>
+                                             <td><a href="{{ url('repair/'. $repair->id.'/edit') }}"> </a>{{ $repair->item->stuff->name }}</td>
                                             <td>{{ $repair->item->condition->name }}</td>
                                             <td>{{ $repair->quantity }}</td>
                                             <td>{{ $repair->created_at }}</td>
