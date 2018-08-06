@@ -157,7 +157,7 @@ class ReportController extends Controller
         $fpdf->SetLineWidth(.3);
         $fpdf->SetFont('', 'B');
         // Header
-        $w = array(7, 50, 30, 28, 13);
+        $w = array(7, 20, 40, 25, 23, 13);
         for ($i = 0; $i < count($header); $i++)
             $fpdf->Cell($w[$i], 7, $header[$i], 1, 0, 'C', true);
         $fpdf->Ln();
@@ -170,10 +170,11 @@ class ReportController extends Controller
         foreach ($data as $x => $row) {
 //            dd($row->stuff_id);
             $fpdf->Cell($w[0], 6, $x+1, 'LR', 0, 'L', $fill);
-            $fpdf->Cell($w[1], 6, $row->name, 'LR', 0, 'L', $fill);
-            $fpdf->Cell($w[2], 6, $row->category->name, 'LR', 0, 'L', $fill);
-            $fpdf->Cell($w[3], 6, $row->program->name, 'LR', 0, 'R', $fill);
-            $fpdf->Cell($w[4], 6, $row->quantity, 'LR', 0, 'R', $fill);
+            $fpdf->Cell($w[1], 6, $row->sku, 'LR', 0, 'L', $fill);
+            $fpdf->Cell($w[2], 6, $row->name, 'LR', 0, 'L', $fill);
+            $fpdf->Cell($w[3], 6, $row->category->name, 'LR', 0, 'L', $fill);
+            $fpdf->Cell($w[4], 6, $row->program->name, 'LR', 0, 'R', $fill);
+            $fpdf->Cell($w[5], 6, $row->quantity, 'LR', 0, 'R', $fill);
             $fpdf->Ln();
             $fill = !$fill;
         }
@@ -190,7 +191,7 @@ class ReportController extends Controller
         } else {
             $stuffs = Stuff::where('program_id', '=', $user->program_id)->get();
         }
-        $header = array('No', 'Nama', 'Kategori', 'Prodi', 'Jumlah');
+        $header = array('No', 'Kode Barang', 'Nama', 'Kategori', 'Prodi', 'Jumlah');
         $fpdf = new \Codedge\Fpdf\Fpdf\Fpdf();
         $fpdf->AddPage("P", "A5");
         $fpdf->SetFont('Courier', 'B', 18);
