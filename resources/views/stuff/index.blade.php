@@ -42,6 +42,7 @@
                                     <thead>
                                     <tr>
                                         <th>No</th>
+                                        <th>Kode Barang</th>
                                         <th>Nama</th>
                                         <th>Kategori</th>
                                         <th>Prodi</th>
@@ -53,6 +54,7 @@
                                     @foreach($stuffs as $row => $stuff)
                                     <tr>
                                         <td>{{ $row+1 }}</td>
+                                        <td>{{ $stuff->sku }}</td>
                                         <td><a href="{{ url('stuff/'. $stuff->id.'/edit') }}"> {{ $stuff->name }}</a></td>
                                         <td><a href="{{ url('category/'. $stuff->category_id.'/edit') }}"> {{ $stuff->category->name }}</a></td>
                                         <td>{{ $stuff->program->name  }}</td>

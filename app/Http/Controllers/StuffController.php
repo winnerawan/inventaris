@@ -62,6 +62,7 @@ class StuffController extends Controller
         $stuff = new Stuff();
 
         $stuff->category_id = $request->category_id;
+        $stuff->sku = $request->sku;
         $stuff->name = $request->name;
 //        $stuff->description = $request->description;
         $stuff->quantity = 0;
@@ -125,6 +126,7 @@ class StuffController extends Controller
 
         $stuff->category_id = $request->input('category_id');
         $stuff->name = $request->input('name');
+        $stuff->sku = $request->input('sku');
 //        $stuff->description = $request->input('description');
 //        $stuff->quantity = 0;
 

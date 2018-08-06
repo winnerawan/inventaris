@@ -45,10 +45,17 @@
                                     <h3 class="card-title">Info Master Barang</h3>
                                     <hr>
                                     <div class="row p-t-20">
-                                        <div class="col-md-12">
+                                        <div class="col-md-6">
                                             <div class="form-group">
                                                 <label class="control-label">Nama</label>
                                                 {{ Form::text('name', null, array('class' => 'form-control', 'required' => '', 'maxlength' => '255')) }}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="control-label">Kode Barang</label>
+                                                {{ Form::text('sku', null, array('class' => 'form-control', 'required' => '', 'maxlength' => '255')) }}
                                             </div>
                                         </div>
 

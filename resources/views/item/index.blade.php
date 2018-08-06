@@ -56,13 +56,13 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($items as $row => $item)
-                                        @if($item->quantity==0)
-                                        @else
-                                            <tr>
-                                                <td>{{ $row+1 }}</td>
+                                    @foreach($items as $x => $item)
 
-                                            @if(Auth::user()->role == 'admin' || Auth::user()->role == 'unit')
+                                        {{--@if($item->quantity==0)--}}
+                                        {{--@else--}}
+                                            <tr>
+                                                <td>{{ $x+1 }}</td>
+                                                @if(Auth::user()->role == 'admin' || Auth::user()->role == 'unit')
                                                     <td>
                                                         <a href="{{ url('item/'. $item->id.'/edit') }}">
                                                             {{ $item->stuff->name . ' - ' . $item->stuff->program->name }}
@@ -79,7 +79,7 @@
                                                 <td>{{ $item->condition->name  }}</td>
                                                 <td>{{ $item->quantity  }}</td>
                                             </tr>
-                                        @endif
+                                        {{--@endif--}}
                                     @endforeach
                                     </tbody>
                                 </table>

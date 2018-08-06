@@ -71,7 +71,7 @@ class ReportController extends Controller
         $items_unit = Item::all();
 
         $items_prodi = Item::join('stuffs', 'stuffs.id', 'items.stuff_id')->where('stuffs.program_id', '=', $user->program_id)->addSelect('stuffs.name', 'items.id', 'items.quantity', 'items.location', 'items.condition_id')->get();
-        $header = array('Nama', 'Lokasi', 'Kondisi', 'Jumlah');
+        $header = array('No', 'Nama', 'Lokasi', 'Kondisi', 'Jumlah');
         $fpdf = new \Codedge\Fpdf\Fpdf\Fpdf();
         $fpdf->AddPage("P", "A5");
         $fpdf->SetFont('Courier', 'B', 18);
@@ -95,7 +95,7 @@ class ReportController extends Controller
         $repairs_unit = Repair::all();
 
         $repairs_prodi = Repair::join('items', 'items.id', '=', 'repairs.item_id')->join('stuffs', 'stuffs.id', '=', 'items.stuff_id')->join('conditions', 'conditions.id', '=', 'items.condition_id')->where('stuffs.program_id', '=', $user->program_id)->addSelect('stuffs.name','items.id', 'repairs.quantity', 'items.location', 'conditions.name as condition', 'repairs.created_at')->get();
-        $header = array('Nama', 'Kondisi', 'Jumlah', 'Tanggal');
+        $header = array('No', 'Nama', 'Kondisi', 'Jumlah', 'Tanggal');
         $fpdf = new \Codedge\Fpdf\Fpdf\Fpdf();
         $fpdf->AddPage("P", "A5");
         $fpdf->SetFont('Courier', 'B', 18);
@@ -123,7 +123,7 @@ class ReportController extends Controller
         $fpdf->SetLineWidth(.3);
         $fpdf->SetFont('', 'B');
         // Header
-        $w = array(50, 32, 26, 18);
+        $w = array(7, 50, 32, 26, 13);
         for ($i = 0; $i < count($header); $i++)
             $fpdf->Cell($w[$i], 7, $header[$i], 1, 0, 'C', true);
         $fpdf->Ln();
@@ -133,12 +133,13 @@ class ReportController extends Controller
         $fpdf->SetFont('');
         // Data
         $fill = false;
-        foreach ($data as $row) {
+        foreach ($data as $x => $row) {
 //            dd($row->stuff_id);
-            $fpdf->Cell($w[0], 6, $row->stuff->name . ' - ' . $row->stuff->program->name, 'LR', 0, 'L', $fill);
-            $fpdf->Cell($w[1], 6, $row->location, 'LR', 0, 'L', $fill);
-            $fpdf->Cell($w[2], 6, $row->condition->name, 'LR', 0, 'R', $fill);
-            $fpdf->Cell($w[3], 6, $row->quantity, 'LR', 0, 'R', $fill);
+            $fpdf->Cell($w[0], 6, $x, 'LR', 0, 'L', $fill);
+            $fpdf->Cell($w[1], 6, $row->stuff->name . ' - ' . $row->stuff->program->name, 'LR', 0, 'L', $fill);
+            $fpdf->Cell($w[2], 6, $row->location, 'LR', 0, 'L', $fill);
+            $fpdf->Cell($w[3], 6, $row->condition->name, 'LR', 0, 'R', $fill);
+            $fpdf->Cell($w[4], 6, $row->quantity, 'LR', 0, 'R', $fill);
             $fpdf->Ln();
             $fill = !$fill;
         }
@@ -156,7 +157,7 @@ class ReportController extends Controller
         $fpdf->SetLineWidth(.3);
         $fpdf->SetFont('', 'B');
         // Header
-        $w = array(50, 32, 28, 20);
+        $w = array(7, 50, 30, 28, 13);
         for ($i = 0; $i < count($header); $i++)
             $fpdf->Cell($w[$i], 7, $header[$i], 1, 0, 'C', true);
         $fpdf->Ln();
@@ -166,12 +167,13 @@ class ReportController extends Controller
         $fpdf->SetFont('');
         // Data
         $fill = false;
-        foreach ($data as $row) {
+        foreach ($data as $x => $row) {
 //            dd($row->stuff_id);
-            $fpdf->Cell($w[0], 6, $row->name, 'LR', 0, 'L', $fill);
-            $fpdf->Cell($w[1], 6, $row->category->name, 'LR', 0, 'L', $fill);
-            $fpdf->Cell($w[2], 6, $row->program->name, 'LR', 0, 'R', $fill);
-            $fpdf->Cell($w[3], 6, $row->quantity, 'LR', 0, 'R', $fill);
+            $fpdf->Cell($w[0], 6, $x, 'LR', 0, 'L', $fill);
+            $fpdf->Cell($w[1], 6, $row->name, 'LR', 0, 'L', $fill);
+            $fpdf->Cell($w[2], 6, $row->category->name, 'LR', 0, 'L', $fill);
+            $fpdf->Cell($w[3], 6, $row->program->name, 'LR', 0, 'R', $fill);
+            $fpdf->Cell($w[4], 6, $row->quantity, 'LR', 0, 'R', $fill);
             $fpdf->Ln();
             $fill = !$fill;
         }
@@ -188,7 +190,7 @@ class ReportController extends Controller
         } else {
             $stuffs = Stuff::where('program_id', '=', $user->program_id)->get();
         }
-        $header = array('Nama', 'Kategori', 'Prodi', 'Jumlah');
+        $header = array('No', 'Nama', 'Kategori', 'Prodi', 'Jumlah');
         $fpdf = new \Codedge\Fpdf\Fpdf\Fpdf();
         $fpdf->AddPage("P", "A5");
         $fpdf->SetFont('Courier', 'B', 18);
@@ -213,7 +215,7 @@ class ReportController extends Controller
         $fpdf->SetLineWidth(.3);
         $fpdf->SetFont('', 'B');
         // Header
-        $w = array(50, 32, 28, 20);
+        $w = array(7, 50, 30, 28, 13);
         for ($i = 0; $i < count($header); $i++)
             $fpdf->Cell($w[$i], 7, $header[$i], 1, 0, 'C', true);
         $fpdf->Ln();
@@ -223,12 +225,13 @@ class ReportController extends Controller
         $fpdf->SetFont('');
         // Data
         $fill = false;
-        foreach ($data as $row) {
+        foreach ($data as $x => $row) {
 //            dd($row->stuff_id);
-            $fpdf->Cell($w[0], 6, $row->name, 'LR', 0, 'L', $fill);
-            $fpdf->Cell($w[1], 6, $row->location, 'LR', 0, 'L', $fill);
-            $fpdf->Cell($w[2], 6, $row->condition->name, 'LR', 0, 'R', $fill);
-            $fpdf->Cell($w[3], 6, $row->quantity, 'LR', 0, 'R', $fill);
+            $fpdf->Cell($w[0], 6, $x, 'LR', 0, 'L', $fill);
+            $fpdf->Cell($w[1], 6, $row->name, 'LR', 0, 'L', $fill);
+            $fpdf->Cell($w[2], 6, $row->location, 'LR', 0, 'L', $fill);
+            $fpdf->Cell($w[3], 6, $row->condition->name, 'LR', 0, 'R', $fill);
+            $fpdf->Cell($w[4], 6, $row->quantity, 'LR', 0, 'R', $fill);
             $fpdf->Ln();
             $fill = !$fill;
         }
@@ -247,7 +250,7 @@ class ReportController extends Controller
         $fpdf->SetLineWidth(.3);
         $fpdf->SetFont('', 'B');
         // Header
-        $w = array(50, 32, 28, 20);
+        $w = array(7, 50, 30, 28, 13);
         for ($i = 0; $i < count($header); $i++)
             $fpdf->Cell($w[$i], 7, $header[$i], 1, 0, 'C', true);
         $fpdf->Ln();
@@ -257,12 +260,13 @@ class ReportController extends Controller
         $fpdf->SetFont('');
         // Data
         $fill = false;
-        foreach ($data as $row) {
+        foreach ($data as $x => $row) {
 //            dd($row->stuff_id);
-            $fpdf->Cell($w[0], 6, $row->item->stuff->name, 'LR', 0, 'L', $fill);
-            $fpdf->Cell($w[1], 6, $row->condition->name, 'LR', 0, 'L', $fill);
-            $fpdf->Cell($w[2], 6, $row->quantity, 'LR', 0, 'R', $fill);
-            $fpdf->Cell($w[3], 6, $row->created_at, 'LR', 0, 'R', $fill);
+            $fpdf->Cell($w[0], 6, $x, 'LR', 0, 'L', $fill);
+            $fpdf->Cell($w[1], 6, $row->item->stuff->name, 'LR', 0, 'L', $fill);
+            $fpdf->Cell($w[2], 6, $row->condition->name, 'LR', 0, 'L', $fill);
+            $fpdf->Cell($w[3], 6, $row->quantity, 'LR', 0, 'R', $fill);
+            $fpdf->Cell($w[4], 6, $row->created_at, 'LR', 0, 'R', $fill);
             $fpdf->Ln();
             $fill = !$fill;
         }
@@ -280,7 +284,7 @@ class ReportController extends Controller
         $fpdf->SetLineWidth(.3);
         $fpdf->SetFont('', 'B');
         // Header
-        $w = array(50, 32, 28, 20);
+        $w = array(7, 50, 30, 28, 13);
         for ($i = 0; $i < count($header); $i++)
             $fpdf->Cell($w[$i], 7, $header[$i], 1, 0, 'C', true);
         $fpdf->Ln();
@@ -290,12 +294,13 @@ class ReportController extends Controller
         $fpdf->SetFont('');
         // Data
         $fill = false;
-        foreach ($data as $row) {
+        foreach ($data as $x => $row) {
 //            dd($row->stuff_id);
-            $fpdf->Cell($w[0], 6, $row->name, 'LR', 0, 'L', $fill);
-            $fpdf->Cell($w[1], 6, $row->condition, 'LR', 0, 'L', $fill);
-            $fpdf->Cell($w[2], 6, $row->quantity, 'LR', 0, 'R', $fill);
-            $fpdf->Cell($w[3], 6, $row->created_at, 'LR', 0, 'R', $fill);
+            $fpdf->Cell($w[0], 6, $x, 'LR', 0, 'L', $fill);
+            $fpdf->Cell($w[1], 6, $row->name, 'LR', 0, 'L', $fill);
+            $fpdf->Cell($w[2], 6, $row->condition, 'LR', 0, 'L', $fill);
+            $fpdf->Cell($w[3], 6, $row->quantity, 'LR', 0, 'R', $fill);
+            $fpdf->Cell($w[4], 6, $row->created_at, 'LR', 0, 'R', $fill);
             $fpdf->Ln();
             $fill = !$fill;
         }
