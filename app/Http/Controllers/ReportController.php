@@ -135,7 +135,7 @@ class ReportController extends Controller
         $fill = false;
         foreach ($data as $x => $row) {
 //            dd($row->stuff_id);
-            $fpdf->Cell($w[0], 6, $x, 'LR', 0, 'L', $fill);
+            $fpdf->Cell($w[0], 6, $x+1, 'LR', 0, 'L', $fill);
             $fpdf->Cell($w[1], 6, $row->stuff->name . ' - ' . $row->stuff->program->name, 'LR', 0, 'L', $fill);
             $fpdf->Cell($w[2], 6, $row->location, 'LR', 0, 'L', $fill);
             $fpdf->Cell($w[3], 6, $row->condition->name, 'LR', 0, 'R', $fill);
@@ -169,7 +169,7 @@ class ReportController extends Controller
         $fill = false;
         foreach ($data as $x => $row) {
 //            dd($row->stuff_id);
-            $fpdf->Cell($w[0], 6, $x, 'LR', 0, 'L', $fill);
+            $fpdf->Cell($w[0], 6, $x+1, 'LR', 0, 'L', $fill);
             $fpdf->Cell($w[1], 6, $row->name, 'LR', 0, 'L', $fill);
             $fpdf->Cell($w[2], 6, $row->category->name, 'LR', 0, 'L', $fill);
             $fpdf->Cell($w[3], 6, $row->program->name, 'LR', 0, 'R', $fill);
@@ -227,7 +227,7 @@ class ReportController extends Controller
         $fill = false;
         foreach ($data as $x => $row) {
 //            dd($row->stuff_id);
-            $fpdf->Cell($w[0], 6, $x, 'LR', 0, 'L', $fill);
+            $fpdf->Cell($w[0], 6, $x+1, 'LR', 0, 'L', $fill);
             $fpdf->Cell($w[1], 6, $row->name, 'LR', 0, 'L', $fill);
             $fpdf->Cell($w[2], 6, $row->location, 'LR', 0, 'L', $fill);
             $fpdf->Cell($w[3], 6, $row->condition->name, 'LR', 0, 'R', $fill);
@@ -262,7 +262,7 @@ class ReportController extends Controller
         $fill = false;
         foreach ($data as $x => $row) {
 //            dd($row->stuff_id);
-            $fpdf->Cell($w[0], 6, $x, 'LR', 0, 'L', $fill);
+            $fpdf->Cell($w[0], 6, $x+1, 'LR', 0, 'L', $fill);
             $fpdf->Cell($w[1], 6, $row->item->stuff->name, 'LR', 0, 'L', $fill);
             $fpdf->Cell($w[2], 6, $row->condition->name, 'LR', 0, 'L', $fill);
             $fpdf->Cell($w[3], 6, $row->quantity, 'LR', 0, 'R', $fill);
@@ -296,7 +296,7 @@ class ReportController extends Controller
         $fill = false;
         foreach ($data as $x => $row) {
 //            dd($row->stuff_id);
-            $fpdf->Cell($w[0], 6, $x, 'LR', 0, 'L', $fill);
+            $fpdf->Cell($w[0], 6, $x+1, 'LR', 0, 'L', $fill);
             $fpdf->Cell($w[1], 6, $row->name, 'LR', 0, 'L', $fill);
             $fpdf->Cell($w[2], 6, $row->condition, 'LR', 0, 'L', $fill);
             $fpdf->Cell($w[3], 6, $row->quantity, 'LR', 0, 'R', $fill);
